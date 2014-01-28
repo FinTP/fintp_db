@@ -26,6 +26,7 @@ Run 'bin/init' to initialize database structure
 - create user for fintp_api (finuiuser)
 - create one tablespace for each user (fincfgtbs, findatatbs)
 - grant user privileges 
+
         psql -f grantPrivs.sql -U postgres -d <database_name>
 - run createDBcontent.sql script file 
 
