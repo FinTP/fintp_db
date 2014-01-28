@@ -25,7 +25,7 @@ COMMIT;
 
 
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (102, 'ValueDate', 'date', '(?<value>\\d{6,8})', 'Value Date', '(?<value>\\d{6,8}|\\d{4}[-]\\d{2}[-]\\d{2})');
-INSERT INTO routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)');
+INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (101, 'Reference', 'string', '(?<value>.*)', 'Transaction reference', '(?<value>.*)');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (103, 'Amount', 'string', '(?<value>[\\d,.]{1,})$', 'Transaction amount', '(?<value>[\\d,.]{1,})');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (104, 'Currency', 'string', '(?<value>[A-Z]{3})', 'Amount currency', '(?<value>[A-Z]{3})');
@@ -39,8 +39,8 @@ INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, descripti
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (125, 'OrigBatchID', 'string', '(?<value>.*)', 'Original batch identifier', '(?<value>.*)');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (126, 'RelRef', 'string', '(?<value>.*)', 'Related transaction reference', '(?<value>.*)');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (127, 'RCode', 'string', '(?<value>.*)', 'Reason code', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (109, 'DbtCustName', 'string', '\\134n(?<value>.*)\\134n', 'Debtor customer name', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (110, 'CdtCustName', 'string', '\\134n(?<value>.*)\\134n', 'Creditor customer name', '(?<value>.*)');
+INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (109, 'DbtCustName', 'string', '\n(?<value>.*)\n', 'Debtor customer name', '(?<value>.*)');
+INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (110, 'CdtCustName', 'string', '\n(?<value>.*)\n', 'Creditor customer name', '(?<value>.*)');
 INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (112, 'Sender', 'string', '(?<value>[A-Z 0-9]{8})', 'Sender bank BIC', '(?<value>[A-Z 0-9]{8})');
 COMMIT;
 
