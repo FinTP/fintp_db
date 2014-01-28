@@ -60,7 +60,6 @@
 \i findata/Tables/status.sql
 \i findata/Tables/tempbatchjobs.sql
 \i findata/Tables/routedmessages.sql
-\i findata/Tables/mtfitoficstmrcdttrftab.sql
 \i findata/Tables/feedbackagg.sql
 
 
@@ -69,18 +68,12 @@
 \i findata/Sequences/commbatchseq.sql
 
 
-\echo findata:Views
-
-\i findata/Views/mtfitoficstmrcdttrfview.sql
-\i findata/Views/repstatft.sql
-
-
 \echo findata:Functions
 
 \i findata/Functions/getnextservicesequence.sql
 \i findata/Functions/abortjob.sql
 \i findata/Functions/batchjob.sql
-\i findata/Functions/batcgmsgs.sql
+\i findata/Functions/batchmsgs.sql
 \i findata/Functions/commitjob.sql
 \i findata/Functions/deferbatchjob.sql
 \i findata/Functions/deferjob.sql
