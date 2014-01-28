@@ -23,6 +23,7 @@ Run 'bin/init' to initialize database structure
 
 - create database
 - create schemas and specific users (fincfg, findata)
+- create one tablespace for each user (fincfgtbs, findatatbs)
 - run createDBcontent.sql script file 
 
         psql -f createDBcontent.sql -U postgres -d <database_name>
