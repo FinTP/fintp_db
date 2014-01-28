@@ -1,4 +1,3 @@
-
 \echo Creating database objects...
 
 --fincfg schema
@@ -46,10 +45,6 @@
 \i fincfg/Functions/updateversion.sql
 \i fincfg/Functions/getduplicatesettings.sql
 
-
-\echo fincfg:Data
-
-\i fincfg/Data/data.sql
 
 
 --findata schema
