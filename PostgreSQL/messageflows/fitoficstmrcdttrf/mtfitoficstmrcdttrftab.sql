@@ -34,6 +34,7 @@ CREATE TABLE findata.mtfitoficstmrcdttrftab (
   cdtcustname  varchar(50),
   ordbank      varchar(12),
   benbank      varchar(12),
+  relref      varchar(35),
   /* Keys */
   CONSTRAINT "PK_MTFITOFICSTMRCDTTRFTAB_CORRELID"
     PRIMARY KEY (correlid)

@@ -19,15 +19,15 @@
 */
 
 
---Function: findata.readmessageinqueue(Input inguid varchar, Input inqueuename varchar, Output outretcursor refcursor)
+--Function: findata.readmessageinqueue(Output outretcursor refcursor, Input inguid varchar, Input inqueuename varchar)
 
---DROP FUNCTION findata.readmessageinqueue(IN inguid varchar, IN inqueuename varchar, OUT outretcursor "refcursor");
+--DROP FUNCTION findata.readmessageinqueue(OUT outretcursor "refcursor", IN inguid varchar, IN inqueuename varchar);
 
 CREATE OR REPLACE FUNCTION findata.readmessageinqueue
 (
+  OUT  outretcursor  "refcursor",
   IN   inguid        varchar,
-  IN   inqueuename   varchar,
-  OUT  outretcursor  "refcursor"
+  IN   inqueuename   varchar    
 )
 RETURNS "refcursor" AS
 $$
@@ -62,9 +62,9 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.readmessageinqueue(IN inguid varchar, IN inqueuename varchar, OUT outretcursor "refcursor")
+ALTER FUNCTION findata.readmessageinqueue(OUT outretcursor "refcursor", IN inguid varchar, IN inqueuename varchar)
   OWNER TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.readmessageinqueue(IN inguid varchar, IN inqueuename varchar, OUT outretcursor "refcursor")
+  ON FUNCTION findata.readmessageinqueue(OUT outretcursor "refcursor", IN inguid varchar, IN inqueuename varchar)
 TO findata;
