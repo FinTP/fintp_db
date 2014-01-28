@@ -80,6 +80,7 @@
 \i findata/Functions/getnextservicesequence.sql
 \i findata/Functions/abortjob.sql
 \i findata/Functions/batchjob.sql
+\i findata/Functions/batcgmsgs.sql
 \i findata/Functions/commitjob.sql
 \i findata/Functions/deferbatchjob.sql
 \i findata/Functions/deferjob.sql
