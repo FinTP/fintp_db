@@ -24,27 +24,6 @@ INSERT INTO fincfg.msgtypes (mtid, messagetype, friendlyname, displayorder, "sto
 COMMIT;
 
 
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (102, 'ValueDate', 'date', '(?<value>\\d{6,8})', 'Value Date', '(?<value>\\d{6,8}|\\d{4}[-]\\d{2}[-]\\d{2})');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (101, 'Reference', 'string', '(?<value>.*)', 'Transaction reference', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (103, 'Amount', 'string', '(?<value>[\\d,.]{1,})$', 'Transaction amount', '(?<value>[\\d,.]{1,})');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (104, 'Currency', 'string', '(?<value>[A-Z]{3})', 'Amount currency', '(?<value>[A-Z]{3})');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (105, 'DbtAccount', 'string', '[^\\/]*\\/(?<value>\\w+)', 'Debtor account number', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (106, 'CdtAccount', 'string', '[^\\/]*\\/(?<value>\\w+)', 'Creditor account number', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (107, 'OrdBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Ordering bank', '(?<value>[A-Z 0-9]{8})');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (108, 'BenBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Beneficiary bank', '(?<value>[A-Z 0-9]{8})');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (111, 'Service', 'string', '(?<value>.*)', 'Payment service', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (113, 'Receiver', 'string', '(?<value>[A-Z 0-9]{8})', 'Receiver bank BIC', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (124, 'OrigRef', 'string', '(?<value>.*)', 'Original transaction reference', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (125, 'OrigBatchID', 'string', '(?<value>.*)', 'Original batch identifier', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (126, 'RelRef', 'string', '(?<value>.*)', 'Related transaction reference', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (127, 'RCode', 'string', '(?<value>.*)', 'Reason code', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (109, 'DbtCustName', 'string', '\n(?<value>.*)\n', 'Debtor customer name', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (110, 'CdtCustName', 'string', '\n(?<value>.*)\n', 'Creditor customer name', '(?<value>.*)');
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES (112, 'Sender', 'string', '(?<value>[A-Z 0-9]{8})', 'Sender bank BIC', '(?<value>[A-Z 0-9]{8})');
-COMMIT;
-
-
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (112, '//x:GrpHdr/x:InstgAgt/x:FinInstnId/x:BIC/text()|//x:CdtTrfTxInf/x:DbtrAgt/x:FinInstnId/x:BIC/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 16);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (113, '//x:GrpHdr/x:InstdAgt/x:FinInstnId/x:BIC/text()|//x:CdtTrfTxInf/x:CdtrAgt/x:FinInstnId/x:BIC/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 17);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (101, '//x:CdtTrfTxInf/x:PmtId/x:TxId/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 18);
@@ -63,5 +42,8 @@ INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALU
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (109, '//x:CdtTrfTxInf/x:Dbtr/x:Nm/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 26);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (110, '//x:CdtTrfTxInf/x:Cdtr/x:Nm/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 27);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (126, '//x:CdtTrfTxInf/x:PmtId/x:InstrId/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 28);
+
+
+INSERT INTO fincfg.queuemsggroups (msgtype, kword1, kword2, kword3, kword4, kword5) VALUES ('FIToFICstmrCdtTrf', 'Receiver', 'ValueDate', NULL, NULL, NULL);
 
 
