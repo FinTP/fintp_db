@@ -60,3 +60,7 @@ TO finuiuser;
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES, TRIGGER, TRUNCATE
   ON fincfg.servicemaps
 TO fincfg;
+
+GRANT SELECT 
+  ON fincfg.servicemaps
+TO findata;

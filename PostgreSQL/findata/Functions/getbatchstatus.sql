@@ -40,6 +40,7 @@ DECLARE
 
 /************************************************
   Change history:   dd.mon.yyyy  --  author  --   description
+                    28.Jan.2014, DenisaN 
   Created:          20.Aug.2013, LucianP
   Description:      Creates a batch job, if none existing with the given values   
   Parameters:       inBatchID   - batch identifier
@@ -66,23 +67,26 @@ BEGIN
                            and batchcount = inBatchCount and batchamount = inBatchAmount
                            and batchuid = inBatchUID ;
 
-EXCEPTION
-   WHEN NO_DATA_FOUND THEN 
+  if outBatchStatus is null and outComBatchID is null then 
 
           --get batchid sequence - service specific
-	  select findata.getnextservicesequence(inServiceID, v_serviceSeq); 
-	  v_comBatchId := inBatchID ||substr(to_char(v_serviceSeq,'0000'),2);
+    select findata.getnextservicesequence(inServiceID) into v_serviceSeq; 
+    v_comBatchId := inBatchID ||substr(to_char(v_serviceSeq,'0000'),2);
 
-	  outBatchStatus := 0; 
+	outBatchStatus := 0; 
   
           --create batching job
-	  insert into findata.batchjobs (batchid,   userid,   batchcount, batchamount,  combatchid,  defjobcount,   batchstatus,
-                                         insertdate,  combatchamt,  routingpoint, batchtype,  batchuid)
+	 insert into findata.batchjobs (batchid,   userid,   batchcount, batchamount,  combatchid,  defjobcount,   batchstatus,
+                                    insertdate,  combatchamt,  routingpoint, batchtype,  batchuid)
                                  values (inBatchID, inUserID,  inBatchCount,  inBatchAmount, v_comBatchId,  0, outBatchStatus, 
-                                         systimestamp,  0,  inRoutingPoint, 'UnknownType',  inBatchUID)
-          returning combatchid into outComBatchID;
+                                         now(),  0,  inRoutingPoint, 'UnknownType',  inBatchUID)
+     returning combatchid into outComBatchID;
 
-   WHEN OTHERS THEN
+ end if;
+
+
+EXCEPTION
+WHEN OTHERS THEN
          RAISE EXCEPTION 'Unexpected error occured while retrieving batch status. Message is: %', SQLERRM;
        
 END;

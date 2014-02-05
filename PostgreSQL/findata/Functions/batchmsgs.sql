@@ -17,7 +17,6 @@
 * or contact Allevo at : 031281 Bucuresti, 23C Calea Vitan, Romania,
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
-
 --Function: findata.batchmsgs(Input inreceiver varchar, Input inmsgtype varchar, Input inrref varchar, Input inccydate varchar, Input inuserid varchar, Input inqueuename varchar, Input inmaxbatchcount integer, Input inqueuetype integer, Input inroutetype varchar, Output outbatches integer, Output outbatchuids varchar)
 
 --DROP FUNCTION findata.batchmsgs(IN inreceiver varchar, IN inmsgtype varchar, IN inrref varchar, IN inccydate varchar, IN inuserid varchar, IN inqueuename varchar, IN inmaxbatchcount integer, IN inqueuetype integer, IN inroutetype varchar, OUT outbatches integer, OUT outbatchuids varchar);
@@ -42,7 +41,7 @@ DECLARE
 
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
-                   24.Jan.2014, DenisaN
+                   19.Jan.2014, DenisaN - review
   Created:         15.Jan.2014, DenisaN - 8150
   Description:     Assigns routing jobs to create message batches.
   Parameters:         
@@ -52,7 +51,7 @@ DECLARE
 
  v_priority         integer default 60;
  v_batchuid         varchar(30);
- v_batchuidold      varchar(30) default ' ';
+ v_batchuidold      varchar(30) default 'X';
  v_batches          integer default 0;
  v_stmt             varchar(4000);
  v_guid             varchar(30);
@@ -61,6 +60,8 @@ DECLARE
  
  
 BEGIN
+
+outbatchuids:=' ';
 
 if inRouteType = 'Route' then --[Batch]  
                   
@@ -92,25 +93,26 @@ if inRouteType = 'Route' then --[Batch]
    open v_msgs for execute v_stmt using inMaxBatchCount, inMaxBatchCount, inMaxBatchCount, inMaxBatchCount,  inMaxBatchCount, inReceiver,
                                         inMaxBatchCount, inQueueName,  inReceiver, inCcyDate;     
              
-       loop
+       loop          
            fetch v_msgs into v_guid, v_batches, v_func, v_batchuid;
            exit when not found;
                   
            insert into routingjobs ( guid, status, priority, backout, routingpoint, function, userid )  
                             values ( v_guid, 0, v_priority, 0, inQueueName, v_func, inUserid );
-                  
-            v_batchuid := rtrim(v_batchuid);          
-            if (v_batchuidold != v_batchuid) then
-                    outbatchUIDs := outbatchUIDs || '''' || v_batchuid || ''',';
-                    v_batchuidold := v_batchuid;
-            end if;
-        end loop;
+                        
+            if (v_batchuidold != v_batchuid and v_batchuid is not null) then
+                       outbatchUIDs := outbatchUIDs || '''' || v_batchuid || ''',';
+                   v_batchuidold := v_batchuid;
+            end if;         
+            
+            outbatches := v_batches;    
+            
+       end loop;
        
     close v_msgs;
        
 end if;
- 
-  outbatches := v_batches; 
+   
    
 EXCEPTION
 WHEN OTHERS THEN
@@ -126,6 +128,7 @@ COST 100;
 
 ALTER FUNCTION findata.batchmsgs(IN inreceiver varchar, IN inmsgtype varchar, IN inrref varchar, IN inccydate varchar, IN inuserid varchar, IN inqueuename varchar, IN inmaxbatchcount integer, IN inqueuetype integer, IN inroutetype varchar, OUT outbatches integer, OUT outbatchuids varchar)
   OWNER TO findata;
+
 
 GRANT EXECUTE
   ON FUNCTION findata.batchmsgs(IN inreceiver varchar, IN inmsgtype varchar, IN inrref varchar, IN inccydate varchar, IN inuserid varchar, IN inqueuename varchar, IN inmaxbatchcount integer, IN inqueuetype integer, IN inroutetype varchar, OUT outbatches integer, OUT outbatchuids varchar)

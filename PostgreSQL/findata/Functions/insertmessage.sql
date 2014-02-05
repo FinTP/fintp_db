@@ -18,25 +18,18 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
---Function: findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
+-- Function: findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[])
 
---DROP FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[]);
+-- DROP FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[]);
 
-CREATE OR REPLACE FUNCTION findata.insertmessage
-(
-  IN  inmsgtype      varchar,
-  IN  insenderapp    varchar,
-  IN  inreceiverapp  varchar,
-  IN  inguid         varchar,
-  IN  incorrelid     varchar,
-  IN  inkwnames      varchar[]
-)
-RETURNS void AS
-$$
+CREATE OR REPLACE FUNCTION findata.insertmessage(inmsgtype character varying, insenderapp character varying, inreceiverapp character varying, inguid character varying, incorrelid character varying, inkwnames character varying[])
+  RETURNS void AS
+$BODY$
 DECLARE
                                                                              
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
+                   03.Feb.2014, DenisaN - date format
   Created:         20.May.2013, DenisaN - 7164
   Description:     Inserts every routed message into common table and specific tables.  
   Parameters:    inMsgType       - message type to be inserted
@@ -59,6 +52,7 @@ v_insertfields     varchar(2000) default '(';
 v_insertvalues     varchar(2000) default '(';
 v_half             integer;
 v_kwvalues         varchar[];
+v_dateformat       varchar(6);            
 
 
 BEGIN
@@ -80,18 +74,25 @@ BEGIN
                       when inKWNames[i] = 'Sender' then v_SenderIdx:=i;
                       when inKWNames[i] = 'Receiver' then v_ReceiverIdx:=i;
                                             
-                      else 
-                                 --extract message specific info
-                                 v_insertfields:= v_insertfields||inKWNames[i];
+            else 
+                      --extract message specific info
+                      v_insertfields:= v_insertfields||inKWNames[i];
 
-                                 if v_kwvalues[i] is null then 
-					 v_insertvalues:= v_insertvalues||''''||'null'||'''';
-			         else
-					 v_insertvalues:= v_insertvalues||''''||v_kwvalues[i]||'''';
-                                 end if;
+                     if v_kwvalues[i] is null then 
+					    v_insertvalues:= v_insertvalues||''''||'null'||'''';
+					    
+					  --standard date format
+					 elsif inKWNames[i] like '%Date' then                          
+                        select findata.getbusinessdateformat(v_kwvalues[i]) into v_dateformat;  
+                        v_insertvalues:= v_insertvalues||''''||v_dateformat||'''';
+                          
+                     else
+       				    v_insertvalues:= v_insertvalues||''''||v_kwvalues[i]||'''';
+       				    
+                     end if;
                                  
-                                 v_insertfields:=v_insertfields||',';
-                                 v_insertvalues:=v_insertvalues||','; 
+                     v_insertfields:=v_insertfields||',';
+                     v_insertvalues:=v_insertvalues||','; 
             end case; 
             
              --extract transaction amount /if any
@@ -115,16 +116,9 @@ WHEN OTHERS THEN
    RAISE EXCEPTION 'Unexpected error occured while inserting message: %', SQLERRM;
        
 END;
-$$
-LANGUAGE 'plpgsql'
-VOLATILE
-CALLED ON NULL INPUT
-SECURITY INVOKER
-COST 100;
-
-ALTER FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[])
   OWNER TO findata;
-
-GRANT EXECUTE
-  ON FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
-TO findata;
+GRANT EXECUTE ON FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[]) TO findata;

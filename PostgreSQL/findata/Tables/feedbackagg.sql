@@ -25,7 +25,7 @@
 CREATE TABLE findata.feedbackagg (
   requestor      varchar(50),
   wmqid          varchar(32),
-  correlid       varchar(30),
+  correlid       varchar(30) NOT NULL,
   interfacecode  varchar(10),
   networkcode    varchar(10),
   correspcode    varchar(10),
@@ -39,9 +39,12 @@ CREATE TABLE findata.feedbackagg (
   osession       varchar(10),
   isession       varchar(10),
   issuer         varchar(12),
-  obatchid       varchar(35)
+  obatchid       varchar(35),
+  /* Keys */
+  CONSTRAINT pk_fb_correlid
+    PRIMARY KEY (correlid)
 ) WITH (
-    OIDS = FALSE
+    OIDS = TRUE
   )
   TABLESPACE findatatbs;
 

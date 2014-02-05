@@ -47,6 +47,14 @@
 
 
 
+\echo fincfg:Data
+
+
+\i fincfg/Data/data.sql
+
+
+
+
 --findata schema
 
 
@@ -81,6 +89,7 @@
 \i findata/Functions/getbatchjobs.sql
 \i findata/Functions/getbatchstatus.sql
 \i findata/Functions/getbatchtype.sql
+\i findata/Functions/getbusinessdateformat.sql
 \i findata/Functions/getfirstjob.sql
 \i findata/Functions/getfirstnewjob.sql
 \i findata/Functions/getmessagesinbatch.sql

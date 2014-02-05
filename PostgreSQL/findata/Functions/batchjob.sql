@@ -19,19 +19,21 @@
 */
 
 
---Function: findata.batchjob(Input injobid varchar, Input insequence integer, Input incombatchid varchar, Input incorrelid varchar, Input infeedback varchar, Input inxformitem text, Output outbatchstatus integer)
+--Function: findata.batchjob(Input injobid varchar, Input insequence integer, Input incombatchid varchar, Input incorrelid varchar, Input infeedback varchar, Input inxformitem text, Input initemamountbdp varchar, Input initemamountadp varchar, Output outbatchstatus integer)
 
---DROP FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, OUT outbatchstatus integer);
+--DROP FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, IN initemamountbdp varchar, IN initemamountadp varchar, OUT outbatchstatus integer);
 
 CREATE OR REPLACE FUNCTION findata.batchjob
 (
-  IN   injobid         varchar,
-  IN   insequence      integer,
-  IN   incombatchid    varchar,
-  IN   incorrelid      varchar,
-  IN   infeedback      varchar,
-  IN   inxformitem     text,
-  OUT  outbatchstatus  integer
+  IN   injobid          varchar,
+  IN   insequence       integer,
+  IN   incombatchid     varchar,
+  IN   incorrelid       varchar,
+  IN   infeedback       varchar,
+  IN   inxformitem      text,
+  IN   initemamountbdp  varchar,
+  IN   initemamountadp  varchar,
+  OUT  outbatchstatus   integer
 )
 RETURNS integer AS
 $$
@@ -78,9 +80,9 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, OUT outbatchstatus integer)
+ALTER FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, IN initemamountbdp varchar, IN initemamountadp varchar, OUT outbatchstatus integer)
   OWNER TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, OUT outbatchstatus integer)
+  ON FUNCTION findata.batchjob(IN injobid varchar, IN insequence integer, IN incombatchid varchar, IN incorrelid varchar, IN infeedback varchar, IN inxformitem text, IN initemamountbdp varchar, IN initemamountadp varchar, OUT outbatchstatus integer)
 TO findata;
