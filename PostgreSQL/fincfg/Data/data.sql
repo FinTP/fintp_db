@@ -89,6 +89,10 @@ COMMIT;
 INSERT INTO fincfg.roles (roleid, name, description, usercreated) VALUES (2, 'Administrator', 'n/a', 0);
 INSERT INTO fincfg.roles (roleid, name, description, usercreated) VALUES (3, 'Reports', 'n/a', 0);
 
+
+INSERT INTO fincfg.params (name, value, description, category) VALUES ('Duplicate Detection Period', '999', '*business days', 'ARCHIVE');
+
+
 COMMIT;
 
 

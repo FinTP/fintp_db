@@ -18,6 +18,7 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
+
 --Function: findata.loadqpcms(Input inhash varchar, Input inmessage text, Input intablename varchar, Input inbuffersize integer, Output outresultcode varchar, Output outresultmessage varchar)
 
 --DROP FUNCTION findata.loadqpcms(IN inhash varchar, IN inmessage text, IN intablename varchar, IN inbuffersize integer, OUT outresultcode varchar, OUT outresultmessage varchar);
@@ -37,7 +38,7 @@ DECLARE
 
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
-                                   
+                   06.Feb.2014, DenisaN - 8192               
   Created:     12.Mar.2013, DenisaN - 7164  
   Description: Extracting and routing message to entry queue (+ history);
   Parameters: inHash  - message computed hash value
@@ -56,7 +57,7 @@ DECLARE
   v_CorrelId                 varchar(30);
   v_SessionId                varchar(30);
   v_RequestorService         varchar(30);
-  v_Hash                     xml;
+  v_Hash                     varchar(50);
   v_ResponderService         varchar(30);
   v_RequestType              varchar(30);
   v_Feedback                 varchar(40);
@@ -77,13 +78,15 @@ select (xpath('/qPCMessageSchema/Message/ResponderService/text()', v_XMLData))[1
 select (xpath('/qPCMessageSchema/Message/RequestType/text()', v_XMLData))[1]::varchar into v_RequestType;
 select (xpath('/qPCMessageSchema/Message/Feedback/text()', v_XMLData))[1]::varchar into v_Feedback;
   
---det dup? -test: daca funct fara calc hashului/det dup
-/*  if inHash is not null  then
-    inserthash( v_RequestorService, v_Guid, trim( inHash ) );
+
+  if inHash is not null  then
+    perform findata.inserthash(v_RequestorService, v_Guid, inHash);
   else
-    v_Hash := v_XMLData.extract('/qPCMessageSchema/Message/Hash/text()');
-    if v_Hash is not null then inserthash( v_RequestorService, v_Guid, v_Hash.getStringVal() ); end if;
-  end if; */
+    select (xpath('/qPCMessageSchema/Message/Hash/text()', v_XMLData))[1]::varchar into v_Hash;
+    if v_Hash is not null then 
+        perform findata.inserthash(v_RequestorService, v_Guid, v_Hash); 
+    end if;
+  end if; 
 
 
 insert into findata.history (guid, payload, batchid, correlationid, sessionid, requestorservice, responderservice, requesttype, feedback, insertdate)
@@ -100,7 +103,6 @@ outResultMessage := 'OK';
 EXCEPTION
 WHEN OTHERS THEN
    RAISE EXCEPTION 'Unexpected error occured while processing message: %', SQLERRM;
---change output values?
 
 END;
 $$

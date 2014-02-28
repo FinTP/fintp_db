@@ -29,6 +29,9 @@
 \i fincfg/Tables/passhistory.sql
 \i fincfg/Tables/versions.sql
 
+\i fincfg/Tables/nbdcalendar.sql
+\i fincfg/Tables/params.sql
+
 
 \echo fincfg:Functions
 
@@ -45,6 +48,8 @@
 \i fincfg/Functions/updateservicestate.sql
 \i fincfg/Functions/updateversion.sql
 \i fincfg/Functions/getduplicatesettings.sql
+
+\i fincfg/Functions/getlastbusinessday.sql
 
 
 
@@ -70,6 +75,8 @@
 \i findata/Tables/tempbatchjobs.sql
 \i findata/Tables/routedmessages.sql
 \i findata/Tables/feedbackagg.sql
+
+\i findata/Tables/messagehashes.sql
 
 
 \echo findata:Sequences
@@ -114,6 +121,13 @@
 \i findata/Functions/updatermresponder.sql
 \i findata/Functions/updatermuserid.sql
 \i findata/Functions/updatermvaluedate.sql
+
+\i findata/Functions/gethash.sql
+\i findata/Functions/inserthash.sql
+\i findata/Functions/purgehashes.sql
+
+
+
 
 
 
