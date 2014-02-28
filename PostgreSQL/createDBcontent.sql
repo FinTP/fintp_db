@@ -27,6 +27,7 @@
 \i fincfg/Tables/users.sql
 \i fincfg/Tables/usersrolemap.sql
 \i fincfg/Tables/passhistory.sql
+\i fincfg/Tables/versions.sql
 
 
 \echo fincfg:Functions
