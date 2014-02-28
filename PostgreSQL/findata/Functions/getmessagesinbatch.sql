@@ -18,6 +18,7 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
+
 --Function: findata.getmessagesinbatch(Output outretcursor refcursor, Input inbatchid varchar, Input inbatchissuer varchar)
 
 --DROP FUNCTION findata.getmessagesinbatch(OUT outretcursor "refcursor", IN inbatchid varchar, IN inbatchissuer varchar);
@@ -34,13 +35,15 @@ DECLARE
                                                                                                     
                                                                                                          
 /************************************************
-  Change history:  dd.mon.yyyy  --  author  --   description
-  Created:         20.Aug.2013, LucianP 7164
-  Description:     Returns the original message payload
-  Parameters:      inMsgID -  message  identifier
-  Returns:         cursor result set
+  Change history:  dd.mon.yyyy  --  author  --   description 
+  Created:         02.Dec.2013, DenisaN
+  Description:     Gets all messages in the specified batch
+  Parameters:      inBatchID    - batch identifier
+                   inBatchIssuer  - not used                                                                                                                                   
+  Returns:         outCursor  parameter representing Cursor result set
   Used:            FinTP/BASE/RE
 ***********************************************/
+
 
 BEGIN
 

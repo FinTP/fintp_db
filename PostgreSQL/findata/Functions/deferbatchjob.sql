@@ -35,17 +35,17 @@ CREATE OR REPLACE FUNCTION findata.deferbatchjob
 RETURNS void AS
 $$
 /************************************************
-  Change history: dd.mon.yyyy  --  author  --   description
-  Created:        
-  Description:    
-  Parameters:   inJobID  -             
-		inSequence   - 
-		inComBatchID   - 
-		inCorrelID  - message correlation identifier        
-		inFfeedback   -    
-		inXformItem  -                                
-  Returns:      outBatchStatus parameter representing the batch status 
-  Used:         [qPI-BASE] RE
+  Change history:  dd.mon.yyyy  --  author  --   description
+  Created:         27.Mar.2013, DenisaN
+  Description:     Deffers one given batch job;
+  Parameters:      inJobID - routing job identifier
+                   inBatchID - batch identifier - computed by RE
+                   inCorrelID  -  correlation identifier
+                   inFeedback - feedback code
+                   inSequence - routing sequence
+                   inXformItem - 
+  Returns:         n/a
+  Used:            FinTP/BASE/RE
 ***********************************************/
 
 DECLARE
@@ -70,10 +70,6 @@ COST 100;
 
 ALTER FUNCTION findata.deferbatchjob(injobid varchar, inbatchid varchar, incorrelid varchar, infeedback varchar, insequence integer, inxformitem text)
   OWNER TO findata;
-
-GRANT EXECUTE
-  ON FUNCTION findata.deferbatchjob(injobid varchar, inbatchid varchar, incorrelid varchar, infeedback varchar, insequence integer, inxformitem text)
-TO PUBLIC;
 
 GRANT EXECUTE
   ON FUNCTION findata.deferbatchjob(injobid varchar, inbatchid varchar, incorrelid varchar, infeedback varchar, insequence integer, inxformitem text)

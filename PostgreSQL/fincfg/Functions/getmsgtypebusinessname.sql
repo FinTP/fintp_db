@@ -69,3 +69,7 @@ TO fincfg;
 GRANT EXECUTE
   ON FUNCTION fincfg.getmsgtypebusinessname(inmsgtype varchar)
 TO findata;
+
+GRANT EXECUTE
+  ON FUNCTION fincfg.getmsgtypebusinessname(inmsgtype varchar)
+TO finuiuser;

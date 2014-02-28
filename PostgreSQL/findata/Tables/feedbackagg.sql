@@ -24,7 +24,7 @@
 
 CREATE TABLE findata.feedbackagg (
   requestor      varchar(50),
-  wmqid          varchar(32),
+  mqid           varchar(100),
   correlid       varchar(30) NOT NULL,
   interfacecode  varchar(10),
   networkcode    varchar(10),

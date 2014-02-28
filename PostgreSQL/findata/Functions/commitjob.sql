@@ -34,6 +34,7 @@ DECLARE
 
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
+                   10.Feb.2014, DenisaN - review 
   Created:         17.May.2013,DenisaN - 7164
   Description:     Removes one given routing job. Reason:commited;
   Parameters:      inJobID - routing job identifier
@@ -41,17 +42,13 @@ DECLARE
   Used:            FinTP/BASE/RE
 ***********************************************/
 
-   ---declare myrec record;
 
 BEGIN
 
-   --select * into strict myrec FROM findata.routingjobs where guid = inJobID;
-   delete from findata.routingjobs where guid = inJobID ;
-   --returning * into strict myrec;
+      delete from findata.routingjobs where guid = inJobID ;
+
 
 EXCEPTION
-   --WHEN NO_DATA_FOUND THEN 
-         --RAISE EXCEPTION 'No job with the ID: % has been found !', inJobID;
    WHEN OTHERS THEN
          RAISE EXCEPTION 'Unexpected error occured while commiting job: %', SQLERRM;
        

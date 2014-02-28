@@ -34,10 +34,10 @@ DECLARE
                                                                                                          
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
-  Created:         20.Aug.2013, LucianP 7164
-  Description:     Returns the original message payload
-  Parameters:      inMsgID -  message  identifier
-  Returns:         cursor result set
+  Created:         02.Dec.2013, DenisaN
+  Description:     Gathers info for one batch job not yet completed.
+  Parameters:      inCombatchID - computed batch identifier
+  Returns:         outRetCursor parameter representing cursor result set
   Used:            FinTP/BASE/RE
 ***********************************************/
 

@@ -41,7 +41,7 @@ DECLARE
 ***********************************************/
 
  v_currentTime timestamp;
- v_cursor      refcursor := 'getactiveschemas';
+ v_cursor      refcursor;
   
 BEGIN
  

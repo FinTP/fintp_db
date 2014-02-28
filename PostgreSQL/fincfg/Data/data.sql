@@ -64,7 +64,7 @@ INSERT INTO fincfg.queuetypes (typeid, typename) VALUES (105, 'History');
 COMMIT;
 
 
-INSERT INTO routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
+INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
   (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)'),                       
   (101, 'Reference', 'string', '(?<value>.*)', 'Transaction reference', '(?<value>.*)'),                         
   (104, 'Currency', 'string', '(?<value>[A-Z]{3})', 'Amount currency', '(?<value>[A-Z]{3})'),

@@ -18,13 +18,21 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
--- Function: findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[])
+--Function: findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
 
--- DROP FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[]);
+--DROP FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[]);
 
-CREATE OR REPLACE FUNCTION findata.insertmessage(inmsgtype character varying, insenderapp character varying, inreceiverapp character varying, inguid character varying, incorrelid character varying, inkwnames character varying[])
-  RETURNS void AS
-$BODY$
+CREATE OR REPLACE FUNCTION findata.insertmessage
+(
+  IN  inmsgtype      varchar,
+  IN  insenderapp    varchar,
+  IN  inreceiverapp  varchar,
+  IN  inguid         varchar,
+  IN  incorrelid     varchar,
+  IN  inkwnames      varchar[]
+)
+RETURNS void AS
+$$
 DECLARE
                                                                              
 /************************************************
@@ -33,11 +41,10 @@ DECLARE
   Created:         20.May.2013, DenisaN - 7164
   Description:     Inserts every routed message into common table and specific tables.  
   Parameters:    inMsgType       - message type to be inserted
-		 inSenderApp     - sender application service
-		 inGuid          - unique identifier
-		 inCorrelID      - correlation identifier  
-		 inKWNames       - message keywords [see cfg.routingkeywordmapps]
-		 inKWValues      - message keyword values  
+		         inSenderApp     - sender application service
+                 inGuid          - unique identifier
+		         inCorrelID      - correlation identifier  
+		         inKWNames       - message keywords [see cfg.routingkeywordmapps] followed by their values
   Returns:       n/a
   Used:          FinTP/BASE/RE
 ***********************************************/
@@ -116,9 +123,17 @@ WHEN OTHERS THEN
    RAISE EXCEPTION 'Unexpected error occured while inserting message: %', SQLERRM;
        
 END;
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[])
+$$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
+
+ALTER FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
   OWNER TO findata;
-GRANT EXECUTE ON FUNCTION findata.insertmessage(character varying, character varying, character varying, character varying, character varying, character varying[]) TO findata;
+
+
+GRANT EXECUTE
+  ON FUNCTION findata.insertmessage(inmsgtype varchar, insenderapp varchar, inreceiverapp varchar, inguid varchar, incorrelid varchar, inkwnames varchar[])
+TO findata;

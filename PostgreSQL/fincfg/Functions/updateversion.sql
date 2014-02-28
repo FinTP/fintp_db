@@ -19,40 +19,56 @@
 */
 
 
-CREATE OR REPLACE FUNCTION fincfg.updateversion(inServiceName    varchar,
-                                                                                                                      inName                     varchar,
-                                                                                                                      inVersion                  varchar,
-                                                                                                                      inMachine               varchar,
-                                                                                                                      inHash                       varchar)
+-- Function: fincfg.updateversion(character varying, character varying, character varying, character varying, character varying)
+
+-- DROP FUNCTION fincfg.updateversion(character varying, character varying, character varying, character varying, character varying);
+
+CREATE OR REPLACE FUNCTION fincfg.updateversion(inservicename character varying, inname character varying, inversion character varying, inmachine character varying, inhash character varying)
   RETURNS void AS
 $BODY$
-
 DECLARE
 
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
-  Created:         
-  Description:     <work in progress> 
-  Parameters:                             
+  Created:         18.Feb.2014, DenisaN
+  Description:     Update app service version 
+  Parameters:      inservicename  - service name
+                   inname - short description
+                   inversion - current version
+                    inmachine - hosting machine
+                   inhash - hash value                         
   Returns:         n/a
-  Used:            FinTP/BASE/
+  Used:            FinTP/BASE/EW
 ***********************************************/
 
+v_count integer;
 
 BEGIN
 
-   select 1;
+  select count(servicename) into v_Count from fincfg.versions where servicename=inServiceName;
+
+  if v_Count > 0 then
+     
+        update fincfg.versions set servicename=inServiceName, versions.name=inName,
+                versions.version=inVersion, machine=inMachine, hash=inHash where servicename=inServiceName;
+         
+     else
+     
+        insert into fincfg.versions( servicename, versions.name, versions.version, machine, hash ) 
+                             values( inServiceName, inName, inVersion, inMachine, inHash );
+        
+  end if;
+     
          
 
 EXCEPTION
 WHEN OTHERS THEN
-   RAISE EXCEPTION 'Unexpected error occured while configuring queue: %', SQLERRM;
+   RAISE EXCEPTION 'Unexpected error occured while config app: %', SQLERRM;
        
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION fincfg.updateversion(varchar, varchar, varchar, varchar, varchar)
+ALTER FUNCTION fincfg.updateversion(character varying, character varying, character varying, character varying, character varying)
   OWNER TO fincfg;
-REVOKE ALL ON FUNCTION fincfg.updateversion(varchar, varchar, varchar, varchar, varchar) FROM public;
-GRANT EXECUTE ON FUNCTION fincfg.updateversion(varchar, varchar, varchar, varchar, varchar) TO fincfg;
+GRANT EXECUTE ON FUNCTION fincfg.updateversion(character varying, character varying, character varying, character varying, character varying) TO fincfg;

@@ -36,7 +36,7 @@ DECLARE
   Used:            FinTP/BASE/RE
 ***********************************************/
 
-v_cursor REFCURSOR := 'getservicestate';
+v_cursor REFCURSOR;
 
 BEGIN
  

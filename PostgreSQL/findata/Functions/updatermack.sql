@@ -31,13 +31,13 @@ $$
 DECLARE
 
 /************************************************
-  Change history: dd.mon.yyyy  --  author  --   description
-  Created:        17.May.2013,DenisaN - 7164
-  Description:    Removes one given routing job.Reason:aborted;
-  Parameters:     inJobID - routing job identifier
-  Returns:        n/a
-  Used:          FinTP/BASE/RE
-***********************************************/
+  Change history:   dd.mon.yyyy  --  author  --   description
+  Created:          27.Mar.2013, DenisaN
+  Description:      Increases number of replies  for one message 
+  Parameters:       inCorrelID   - message correlation identifier
+  Returns:          n/a
+  Used:             FinTP/BASE/RE
+***********************************************/   
 
 BEGIN
 
