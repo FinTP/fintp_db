@@ -139,7 +139,7 @@ FROM routedmessages) rm
         (
           (
             (
-              (feedbackagg.wmqid IS NULL) AND
+              (feedbackagg.mqid IS NULL) AND
               (feedbackagg.interfacecode IS NULL)
             ) AND
             (feedbackagg.networkcode IS NULL)
@@ -150,7 +150,7 @@ FROM routedmessages) rm
       ) THEN 'New'::text 
       WHEN (
         (
-          (feedbackagg.wmqid IS NOT NULL) AND
+          (feedbackagg.mqid IS NOT NULL) AND
           (feedbackagg.interfacecode IS NULL)
         ) AND
         (feedbackagg.appcode IS NULL)
