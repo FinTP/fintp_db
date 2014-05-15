@@ -18,34 +18,24 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
---Table: findata.routingjobs
+--Sequence: findata.batchrequests_requestid_seq
 
---DROP TABLE findata.routingjobs;
+--DROP SEQUENCE findata.batchrequests_requestid_seq;
 
-CREATE TABLE findata.routingjobs (
-  guid          varchar(30) NOT NULL,
-  status        integer NOT NULL DEFAULT 0,
-  backout       integer NOT NULL DEFAULT 0,
-  priority      integer NOT NULL DEFAULT 10,
-  routingpoint  varchar(50),
-  "function"    varchar(200) NOT NULL,
-  userid        integer,
-  /* Keys */
-  CONSTRAINT "PK_RJ_GUID"
-    PRIMARY KEY (guid)
-    USING INDEX TABLESPACE findatatbs
-) WITH (
-    OIDS = TRUE
-  )
-  TABLESPACE findatatbs;
+CREATE SEQUENCE findata.batchrequests_requestid_seq
+  START 1
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 2147483647
+  CACHE 1;
 
-ALTER TABLE findata.routingjobs
+ALTER TABLE findata.batchrequests_requestid_seq
   OWNER TO findata;
 
-GRANT SELECT, INSERT, UPDATE, DELETE
-  ON findata.routingjobs
-TO finuiuser;
-
-GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES, TRIGGER, TRUNCATE
-  ON findata.routingjobs
+GRANT SELECT, UPDATE, USAGE
+  ON SEQUENCE findata.batchrequests_requestid_seq
 TO findata;
+
+GRANT SELECT, UPDATE, USAGE
+  ON SEQUENCE findata.batchrequests_requestid_seq
+TO finuiuser;

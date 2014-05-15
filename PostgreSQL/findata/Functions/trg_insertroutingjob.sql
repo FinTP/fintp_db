@@ -27,7 +27,7 @@ RETURNS trigger AS
 $$
 BEGIN
 	insert into findata.routingjobs( guid, status, backout, priority, routingpoint, function, userid )
-                                 values( new.guid, 0, 0, new.priority, new.queuename, 'F=Route', '' );
+                                 values( new.guid, 0, 0, new.priority, new.queuename, 'F=Route', null );
 
     RETURN NULL; 
 END;
@@ -41,9 +41,6 @@ COST 100;
 ALTER FUNCTION findata.trg_insertroutingjob()
   OWNER TO findata;
 
-GRANT EXECUTE
-  ON FUNCTION findata.trg_insertroutingjob()
-TO PUBLIC;
 
 GRANT EXECUTE
   ON FUNCTION findata.trg_insertroutingjob()

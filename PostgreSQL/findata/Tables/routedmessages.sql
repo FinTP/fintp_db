@@ -34,7 +34,7 @@ CREATE TABLE findata.routedmessages (
   trn            varchar(35) NOT NULL,
   senderapp      varchar(35),
   receiverapp    varchar(35),
-  userid         varchar(35),
+  userid         integer,
   amount         varchar(50),
   /* Keys */
   CONSTRAINT "PK_RM_GUID"
@@ -42,13 +42,7 @@ CREATE TABLE findata.routedmessages (
     USING INDEX TABLESPACE findatatbs, 
   CONSTRAINT "UK_RM_CORRELID"
     UNIQUE (correlationid)
-    USING INDEX TABLESPACE findatatbs,
-  /* Foreign keys */
-  CONSTRAINT "FK_RM_EQ_CORRELID"
-    FOREIGN KEY (correlationid)
-    REFERENCES findata.entryqueue(correlationid)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
+    USING INDEX TABLESPACE findatatbs
 ) WITH (
     OIDS = TRUE
   )

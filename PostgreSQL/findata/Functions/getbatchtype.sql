@@ -48,14 +48,14 @@ v_stmt  character varying(250);
 
 BEGIN
 
-      if inSender is not null then           
-        -- get batch type from incoming batch storage
-         v_stmt := 'select batchtype from findata.' || inTableName || ' t where combatchid = $1 and sender = $2';
-         execute v_stmt into outBatchType using inBatchID, inSender ;
-      else
+      if inSender = '' then           
          --  get batch type from outgoing batch storage
          v_stmt := 'select batchtype from findata.' || inTableName || ' t where combatchid = $1'; 
          execute v_stmt into outBatchType using inBatchID;
+      else
+        -- get batch type from incoming batch storage
+         v_stmt := 'select batchtype from findata.' || inTableName || ' t where combatchid = $1 and sender = $2';
+         execute v_stmt into outBatchType using inBatchID, inSender ;
       end if;
 
 EXCEPTION

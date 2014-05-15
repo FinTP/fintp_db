@@ -34,8 +34,9 @@ DECLARE
 
 /************************************************
   Change history:      dd.mon.yyyy  --  author  --   description
+                       20.Mar.2014, DenisaN 8303
   Created:             09.Aug.2013, LucianP 7163
-  Description:         Marks one given message as not held by any queue [message has been routed to the end point] or
+  Description:         Removes messages from queue [message has been routed to the end point] or
                                    removes reply messages from queue.  
   Parameters:          inGuid - message identifier
                        inQueueName -  destination queue name [null]
@@ -49,10 +50,9 @@ BEGIN
     if inIsReply = 0 then
         
         update findata.routedmessages set currentqueue = null where correlationid = (select correlationid from entryqueue where guid = inGuid);
-        update findata.entryqueue set queuename=null where guid = inGuid;
+        delete from findata.entryqueue where guid = inGuid;
         
-    elsif inIsReply = 1 then
-    
+    elsif inIsReply = 1 then    
         delete from findata.entryqueue where guid = inGuid;             
     end if;
 

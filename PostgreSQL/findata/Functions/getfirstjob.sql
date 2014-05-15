@@ -63,7 +63,3 @@ ALTER FUNCTION findata.getfirstjob(OUT outretcursor "refcursor")
 GRANT EXECUTE
   ON FUNCTION findata.getfirstjob(OUT outretcursor "refcursor")
 TO findata;
-
-GRANT EXECUTE
-  ON FUNCTION findata.getfirstjob(OUT outretcursor "refcursor")
-TO PUBLIC;

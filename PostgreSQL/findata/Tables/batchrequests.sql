@@ -19,33 +19,20 @@
 */
 
 
---Table: findata.batchjobs
+--Table: findata.batchrequests
 
---DROP TABLE findata.batchjobs;
+--DROP TABLE findata.batchrequests;
 
-CREATE TABLE findata.batchjobs (
-  batchid       varchar(16) NOT NULL,
-  userid        integer NOT NULL,
-  batchcount    integer NOT NULL,
-  batchamount   varchar(20) NOT NULL,
-  combatchid    varchar(35) NOT NULL PRIMARY KEY,
-  defjobcount   integer NOT NULL,
-  batchstatus   integer NOT NULL,
-  insertdate    timestamp WITHOUT TIME ZONE NOT NULL,
-  routingpoint  varchar(50) NOT NULL,
-  reason        varchar(500),
-  combatchamt   numeric(20,2),
-  batchtype     varchar(50),
-  batchuid      varchar(32),
+CREATE TABLE findata.batchrequests (
+  groupkey   varchar(100),
+  batchuid   varchar(35),
+  requestid  serial NOT NULL,
+  userid     integer,
   /* Keys */
-  CONSTRAINT "PK_BJ_BATCHID"
-    PRIMARY KEY (combatchid)
-    USING INDEX TABLESPACE findatatbs, 
-  CONSTRAINT "UK_BJ_CONST"
-    UNIQUE (batchid, userid, batchcount, batchamount, batchuid)
-    USING INDEX TABLESPACE findatatbs,
+  CONSTRAINT batchrequests_pkey
+    PRIMARY KEY (requestid),
   /* Foreign keys */
-  CONSTRAINT fk_u_bj_uid
+  CONSTRAINT fk_u_br_uid
     FOREIGN KEY (userid)
     REFERENCES fincfg.users(userid)
     ON DELETE NO ACTION
@@ -55,13 +42,13 @@ CREATE TABLE findata.batchjobs (
   )
   TABLESPACE findatatbs;
 
-ALTER TABLE findata.batchjobs
+ALTER TABLE findata.batchrequests
   OWNER TO findata;
 
-GRANT SELECT
-  ON findata.batchjobs
-TO finuiuser;
-
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES, TRIGGER, TRUNCATE
-  ON findata.batchjobs
+  ON findata.batchrequests
 TO findata;
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+  ON findata.batchrequests
+TO finuiuser;
