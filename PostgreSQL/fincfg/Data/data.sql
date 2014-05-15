@@ -20,25 +20,26 @@
 
 
 
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('MSGTYPES_MTID', 400);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QMOVEPRIVMAPS_MAPID', 1001);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QTYPEACTIONMAPS_MAPID', 1);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ERRORCODES_GUID', 2);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROLES_ROLEID', 151);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUES_GUID', 199);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGSCHEMAS_GUID', 22402);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('TIMELIMITS_GUID', 36453);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUETYPES_TYPEID', 19680);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUEACTIONS_ACTIONID', 13366);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('SERVICEPERFORMANCE_SERVICEID', 16151);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('USERSROLEMAP_MAPID', 2460);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUESROLEMAP_MAPID', 2451);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGKEYWORDMAPS_MAPID', 19260);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGRULES_GUID', 54460);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('SERVICEMAPS_SERVICEID', 18401);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGKEYWORDS_GUID', 20301);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ALERTS_ALERTID', 9800);
-INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('USERS_USERID', 201);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('MSGTYPES_MTID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QMOVEPRIVMAPS_MAPID', 999);
+INSERT INTO idgenlist (tabcolname, idvalue) VALUES ('QTYPEACTIONMAPS_MAPID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ERRORCODES_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROLES_ROLEID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUES_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('BATCHREQUESTS_REQUESTID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUETYPES_TYPEID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('SERVICEPERFORMANCE_SERVICEID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('USERSROLEMAP_MAPID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGKEYWORDMAPS_MAPID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGRULES_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUEACTIONS_ACTIONID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('SERVICEMAPS_SERVICEID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGKEYWORDS_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROUTINGSCHEMAS_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('TIMELIMITS_GUID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUESROLEMAP_MAPID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ALERTS_ALERTID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('USERS_USERID', 999);
 COMMIT;
 
 
@@ -64,24 +65,29 @@ INSERT INTO fincfg.queuetypes (typeid, typename) VALUES (105, 'History');
 COMMIT;
 
 
-INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
-  (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)'),                       
-  (101, 'Reference', 'string', '(?<value>.*)', 'Transaction reference', '(?<value>.*)'),                         
-  (104, 'Currency', 'string', '(?<value>[A-Z]{3})', 'Amount currency', '(?<value>[A-Z]{3})'),
-  (107, 'OrdBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Ordering bank', '(?<value>[A-Z 0-9]{8})'),                              
-  (108, 'BenBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Beneficiary bank', '(?<value>[A-Z 0-9]{8})'),      
-  (111, 'Service', 'string', '(?<value>.*)', 'Payment service', '(?<value>.*)'),                  
-  (113, 'Receiver', 'string', '(?<value>[A-Z 0-9]{8})', 'Receiver bank BIC', '(?<value>.*)'),     
-  (124, 'OrigRef', 'string', '(?<value>.*)', 'Original transaction reference', '(?<value>.*)'),   
-  (125, 'OrigBatchID', 'string', '(?<value>.*)', 'Original batch identifier', '(?<value>.*)'),  
-  (126, 'RelRef', 'string', '(?<value>.*)', 'Related transaction reference', '(?<value>.*)'),  
-  (103, 'Amount', 'string', E'(?<value>[\\d,\\.]{1,})$', 'Transaction amount', E'(?<value>[\\d,\\.]{1,})$'), 
-  (102, 'ValueDate', 'date', E'(?<value>\\d{6,8})', 'Value Date', E'(?<value>\\d{6,8}|\\d{4}[-]\\d{2}[-]\\d{2})'),
-  (105, 'DbtAccount', 'string', E'[^\\/]*\\/(?<value>\\w+)', 'Debtor account number', '(?<value>.*)'),
-  (106, 'CdtAccount', 'string', E'[^\\/]*\\/(?<value>\\w+)', 'Creditor account number', '(?<value>.*)'),
-  (109, 'DbtCustName', 'string', E'\\n(?<value>.*)\\n', 'Debtor customer name', '(?<value>.*)'),
-  (110, 'CdtCustName', 'string', E'\\n(?<value>.*)\\n', 'Creditor customer name', '(?<value>.*)'),
-  (112, 'Sender', 'string', '(?<value>[A-Z 0-9]{8})', 'Sender bank BIC', '(?<value>[A-Z 0-9]{8})');
+INSERT INTO routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
+  (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)'),
+  (117, 'TTC', 'string', '(?<value>.*)', 'Transaction type code', '(?<value>.*)'),  
+  (124, 'OrigRef', 'string', '(?<value>.*)', 'Original transaction reference', '(?<value>.*)'),
+  (125, 'OrigBatchID', 'string', '(?<value>.*)', 'Original batch identifier', '(?<value>.*)'),
+  (126, 'RelRef', 'string', '(?<value>.*)', 'Related transaction reference', '(?<value>.*)'),
+  (127, 'RCode', 'string', '(?<value>.*)', 'Reason code', '(?<value>.*)'),
+  (129, 'DbtID', 'string', E'[^\\n]*\\n(?<value>[^\\n]*)$', 'Debtor ID', '(?<value>.*)'),
+  (102, 'ValueDate', 'string', E'(?<value>\\d{6,8})', 'Value Date', E'(?<value>\\d{6,8}|\\d{4}[-]\\d{2}[-]\\d{2})'),
+  (101, 'Reference', 'string', '(?<value>.*)', 'Reference', '(?<value>.*)'),
+  (103, 'Amount', 'string', E'(?<value>[\\d,\\.]{1,})$', 'Amount', E'(?<value>[\\d,\\.]{1,})$'),
+  (104, 'Currency', 'string', '(?<value>[A-Z]{3})', 'Currency', '(?<value>[A-Z]{3})'),
+  (105, 'DbtAccount', 'string', E'[^\\/]*\\/(?<value>\\w+)', 'Debtor Account', '(?<value>.*)'),
+  (106, 'CdtAccount', 'string', E'[^\\/]*\\/(?<value>\\w+)', 'Creditor Account', '(?<value>.*)'),
+  (132, 'IssDate', 'date', '(?<value>d{6,8})', 'Issuance Date', '(?<value>.*)'),
+  (107, 'OrdBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Ordering Bank', '(?<value>[A-Z 0-9]{8})'),
+  (108, 'BenBank', 'string', '(?<value>[A-Z 0-9]{8})', 'Beneficiary Bank', '(?<value>[A-Z 0-9]{8})'),
+  (128, 'MatDate', 'date', '(?<value>.*)', 'Maturity Date', '(?<value>.*)'),
+  (109, 'DbtCustName', 'string', E'[^\\n]*\\n(?<value>[^\\n]*)\\n.*', 'Debtor Customer Name', '(?<value>.*)'),
+  (110, 'CdtCustName', 'string', E'[^\n]*\n(?<value>[^\n]*)[\n]*.*', 'Creditor Customer Name', '(?<value>.*)'),
+  (111, 'Service', 'string', '(?<value>.*)', 'Service', '(?<value>.*)'),
+  (112, 'Sender', 'string', '(?<value>[A-Z 0-9]{8})', 'Sender', '(?<value>[A-Z 0-9]{8})'),
+  (113, 'Receiver', 'string', '(?<value>[A-Z 0-9]{8})', 'Receiver', '(?<value>.*)');
 COMMIT;
 
 
@@ -91,8 +97,28 @@ INSERT INTO fincfg.roles (roleid, name, description, usercreated) VALUES (3, 'Re
 
 
 INSERT INTO fincfg.params (name, value, description, category) VALUES ('Duplicate Detection Period', '999', '*business days', 'ARCHIVE');
+COMMIT;
 
-
+INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Blocking funds)', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Refusal to Pay)', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Reinitiate)', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Interface sucess', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Interface error', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Network accepted', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Network error', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('New', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Partially refused', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Partially settled', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Possible Duplicate', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Reactivated', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Received', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Refused', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Rejected', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Rejected by user', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Rejected by client', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Rejected after COT', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Sent', NULL);
+INSERT INTO reportingtxstates (status, description) VALUES ('Settled', NULL);
 COMMIT;
 
 

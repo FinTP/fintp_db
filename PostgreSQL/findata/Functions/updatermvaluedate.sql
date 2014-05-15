@@ -40,14 +40,20 @@ DECLARE
   Returns:       n/a
   Used:           FinTP/BASE/RE
 ***********************************************/   
+
 v_tablename        varchar(35);
+v_msgtype          varchar(35);
 
 BEGIN
-	select distinct storage into v_tablename from fincfg.msgtypes where messagetype in 
+	select distinct storage, messagetype  into v_tablename, v_msgtype from fincfg.msgtypes where messagetype in 
 		(select msgtype from findata.routedmessages where correlationid =  inCorrelID); 
 	       
+    if v_msgtype in ('CQ', 'PN', 'BE') then -- debit instruments  
+        execute 'update findata.'||v_tablename||' set issdate = $1 where correlid = $2' using inValueDate, inCorrelID;
+    else    
         execute 'update findata.'||v_tablename||' set valuedate = $1 where correlid = $2' using inValueDate, inCorrelID;
-
+    end if;
+    
 EXCEPTION
 WHEN OTHERS THEN
    RAISE EXCEPTION 'Unexpected error occured while processing message: %', SQLERRM;
