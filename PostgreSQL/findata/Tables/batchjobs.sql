@@ -37,13 +37,13 @@ CREATE TABLE findata.batchjobs (
   combatchamt   numeric(20,2),
   batchtype     varchar(50),
   batchuid      varchar(32),
-  /* Keys */
+  /* Keys 
   CONSTRAINT "PK_BJ_BATCHID"
     PRIMARY KEY (combatchid)
     USING INDEX TABLESPACE findatatbs, 
   CONSTRAINT "UK_BJ_CONST"
     UNIQUE (batchid, userid, batchcount, batchamount, batchuid)
-    USING INDEX TABLESPACE findatatbs,
+    USING INDEX TABLESPACE findatatbs,*/
   /* Foreign keys */
   CONSTRAINT fk_u_bj_uid
     FOREIGN KEY (userid)

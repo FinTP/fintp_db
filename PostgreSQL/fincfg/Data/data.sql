@@ -72,7 +72,7 @@ INSERT INTO routingkeywords (guid, keyword, comparer, selector, description, sel
   (125, 'OrigBatchID', 'string', '(?<value>.*)', 'Original batch identifier', '(?<value>.*)'),
   (126, 'RelRef', 'string', '(?<value>.*)', 'Related transaction reference', '(?<value>.*)'),
   (127, 'RCode', 'string', '(?<value>.*)', 'Reason code', '(?<value>.*)'),
-  (129, 'DbtID', 'string', E'[^\\n]*\\n(?<value>[^\\n]*)$', 'Debtor ID', '(?<value>.*)'),
+  (129, 'DbtID', 'string', E'(?:[^\\n]*\\n)*(?<value>.*)$', 'Debtor ID', '(?<value>.*)'),
   (102, 'ValueDate', 'string', E'(?<value>\\d{6,8})', 'Value Date', E'(?<value>\\d{6,8}|\\d{4}[-]\\d{2}[-]\\d{2})'),
   (101, 'Reference', 'string', '(?<value>.*)', 'Reference', '(?<value>.*)'),
   (103, 'Amount', 'string', E'(?<value>[\\d,\\.]{1,})$', 'Amount', E'(?<value>[\\d,\\.]{1,})$'),
@@ -123,3 +123,10 @@ COMMIT;
 
 
 
+INSERT INTO fincfg.servicemaps (friendlyname, serviceid, status, lastsessionid, heartbeatinterval, lastheartbeat, "version", partner, servicetype, ioidentifier, exitpoint, sessionid, duplicatecheck, duplicateq, duplicatemap, duplicatenotifq, delayednotifq) VALUES ('EventsWatcher', 1, 3, 0, 0, now(), NULL, NULL, 0, NULL, NULL, '538c2a62-19c55082-7e820001', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO fincfg.servicemaps (friendlyname, serviceid, status, lastsessionid, heartbeatinterval, lastheartbeat, "version", partner, servicetype, ioidentifier, exitpoint, sessionid, duplicatecheck, duplicateq, duplicatemap, duplicatenotifq, delayednotifq) VALUES ('RoutingEngine', 3, 3, 0, 0, now(), NULL, NULL, 0, NULL, NULL, '538c2a62-83ec5082-b63b0001', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO fincfg.servicemaps (friendlyname, serviceid, status, lastsessionid, heartbeatinterval, lastheartbeat, "version", partner, servicetype, ioidentifier, exitpoint, sessionid, duplicatecheck, duplicateq, duplicatemap, duplicatenotifq, delayednotifq) VALUES ('FinTPDB000', 10, 3, 0, 50, now(), NULL, 'DB Service', 1, NULL, NULL, '538c2a63-308a5082-23320001', NULL, NULL, NULL, NULL, NULL);
+
+INSERT INTO findata.serviceperformance (serviceid, insertdate, mintransactiontime, maxtransactiontime, meantransactiontime, sequenceno, ioidentifier, sessionid, commitedtrns, abortedtrns) VALUES (10, now(), 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO findata.serviceperformance (serviceid, insertdate, mintransactiontime, maxtransactiontime, meantransactiontime, sequenceno, ioidentifier, sessionid, commitedtrns, abortedtrns) VALUES (1, now(), 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO findata.serviceperformance (serviceid, insertdate, mintransactiontime, maxtransactiontime, meantransactiontime, sequenceno, ioidentifier, sessionid, commitedtrns, abortedtrns) VALUES (3, now(), 0, 0, 0, 0, 0, 0, 0, 0);
