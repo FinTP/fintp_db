@@ -65,7 +65,7 @@ INSERT INTO fincfg.queuetypes (typeid, typename) VALUES (105, 'History');
 COMMIT;
 
 
-INSERT INTO routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
+INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, description, selectoriso) VALUES
   (134, 'OrigInstrID', 'string', '(?<value>.*)', 'Original Instructed ID', '(?<value>.*)'),
   (117, 'TTC', 'string', '(?<value>.*)', 'Transaction type code', '(?<value>.*)'),  
   (124, 'OrigRef', 'string', '(?<value>.*)', 'Original transaction reference', '(?<value>.*)'),
@@ -99,26 +99,26 @@ INSERT INTO fincfg.roles (roleid, name, description, usercreated) VALUES (3, 'Re
 INSERT INTO fincfg.params (name, value, description, category) VALUES ('Duplicate Detection Period', '999', '*business days', 'ARCHIVE');
 COMMIT;
 
-INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Blocking funds)', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Refusal to Pay)', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('AML Rejected (Reinitiate)', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Interface sucess', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Interface error', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Network accepted', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Network error', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('New', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Partially refused', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Partially settled', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Possible Duplicate', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Reactivated', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Received', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Refused', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Rejected', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Rejected by user', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Rejected by client', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Rejected after COT', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Sent', NULL);
-INSERT INTO reportingtxstates (status, description) VALUES ('Settled', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('AML Rejected (Blocking funds)', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('AML Rejected (Refusal to Pay)', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('AML Rejected (Reinitiate)', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Interface sucess', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Interface error', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Network accepted', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Network error', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('New', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Partially refused', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Partially settled', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Possible Duplicate', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Reactivated', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Received', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Refused', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Rejected', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Rejected by user', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Rejected by client', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Rejected after COT', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Sent', NULL);
+INSERT INTO fincfg.reportingtxstates (status, description) VALUES ('Settled', NULL);
 COMMIT;
 
 
