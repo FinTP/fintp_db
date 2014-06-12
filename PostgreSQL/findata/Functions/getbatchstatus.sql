@@ -20,7 +20,7 @@
 
 --Function: findata.getbatchstatus(Input inbatchid varchar, Input inuserid varchar, Input inbatchcount integer, Input inbatchamount varchar, Input inserviceid integer, Input inroutingpoint varchar, Input inbatchuid varchar, Output outbatchstatus integer, Output outcombatchid varchar)
 
---DROP FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid varchar, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar);
+--DROP FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid integer, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar);
 
 CREATE OR REPLACE FUNCTION findata.getbatchstatus
 (
