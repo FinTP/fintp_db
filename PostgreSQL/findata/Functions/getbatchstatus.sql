@@ -25,7 +25,7 @@
 CREATE OR REPLACE FUNCTION findata.getbatchstatus
 (
   IN   inbatchid       varchar,
-  IN   inuserid        varchar,
+  IN   inuserid        integer,
   IN   inbatchcount    integer,
   IN   inbatchamount   varchar,
   IN   inserviceid     integer,
@@ -97,9 +97,9 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid varchar, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar)
+ALTER FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid integer, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar)
   OWNER TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid varchar, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar)
+  ON FUNCTION findata.getbatchstatus(IN inbatchid varchar, IN inuserid integer, IN inbatchcount integer, IN inbatchamount varchar, IN inserviceid integer, IN inroutingpoint varchar, IN inbatchuid varchar, OUT outbatchstatus integer, OUT outcombatchid varchar)
 TO findata;
