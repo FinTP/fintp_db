@@ -69,17 +69,25 @@ open outretcursor for
   order by rnum;
 
 
+elsif inheadertype = 'T' and inmsgtype = 'undefined' then
+
+     open outretcursor for 
+        select 	'Batch ID', 'batchid', 1 rn union select 'Requestor Service', 'requestorservice', 2 rn 
+          union select 'Internal ID', 'correlationid', 3 rn
+        order by rn asc;
+
+
 elsif inheadertype = 'T' and inmsgtype = 'FIToFICstmrCdtTrf' then
 
      open outretcursor for 
-        select 	'Sender', 'sender', 1 rn union select 'Receiver', 'receiver', 2 rn union select 'Reference', 'trn', 3 rn
+         select 'Reference', 'trn', 3 rn
          union select 'Value Date', 'valuedate', 4 rn union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6rn
         order by rn asc;
    
 elsif inheadertype = 'T' and inmsgtype in ('103', '202', 'CoreBlkLrgRmtCdtTrf') then
 
       open outretcursor for 
-       select 	'Sender', 'sender', 1 rn union select 'Receiver', 'receiver', 2 rn union select 'Reference', 'trn', 3 rn
+       select 'Reference', 'trn', 3 rn
          union select 'Value Date', 'valuedate', 4 rn union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6rn
          union select 'Service', 'service', 7 rn
         order by rn asc;
@@ -87,23 +95,47 @@ elsif inheadertype = 'T' and inmsgtype in ('103', '202', 'CoreBlkLrgRmtCdtTrf') 
 elsif inheadertype = 'T' and inmsgtype in ('BE', 'PN') then
 
      open outretcursor for 
-        select 	'Sender', 'sender', 1 rn union select 'Receiver', 'receiver', 2 rn union select 'Reference', 'trn', 3 rn
+        select 'Reference', 'trn', 3 rn
          union select 'Maturity Date', 'matdate', 4 rn union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6rn
         order by rn asc;      
         
 elsif inheadertype = 'T' and inmsgtype in ('CQ') then
 
      open outretcursor for 
-        select 	'Sender', 'sender', 1 rn union select 'Receiver', 'receiver', 2 rn union select 'Reference', 'trn', 3 rn
+         select 'Reference', 'trn', 3 rn
          union select 'Issuance Date', 'issdate', 4 rn union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6rn
         order by rn asc;          
         
 elsif inheadertype = 'T' and inmsgtype in ('RBE', 'RPN', 'RCQ') then
 
      open outretcursor for 
-        select 	'Sender', 'sender', 1 rn union select 'Receiver', 'receiver', 2 rn union select 'Reference', 'trn', 3 rn
+         select 'Reference', 'trn', 3 rn
          union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6rn
         order by rn asc; 
+
+elsif inheadertype = 'T' and inmsgtype in ('104') then
+
+      open outretcursor for 
+        select 'Reference', 'trn', 3 rn
+         union select 'Value Date', 'valuedate', 4 rn union select 'Amount', 'amount', 5 rn union select 'Currency', 'currency', 6 rn
+        order by rn asc;
+
+elsif inheadertype = 'T' and inmsgtype in ('104R') then
+
+      open outretcursor for 
+       select 'Reference', 'trn', 3 rn
+         union select 'Original Batch ID', 'origbatchid', 4 rn
+        order by rn asc;       
+
+elsif inheadertype = 'T' and inmsgtype in ('950E', '940E') then
+
+      open outretcursor for 
+       select 'Time', 'insertdate', 1 rn       
+         union select 'Transaction reference', 'trn', 2 rn
+         union select 'Value date', 'valuedate', 3 rn
+         union select 'Amount', 'amount', 4 rn
+         union select 'Currency', 'currency', 5 rn 
+       order by rn asc;           
                          
 end if;
 
