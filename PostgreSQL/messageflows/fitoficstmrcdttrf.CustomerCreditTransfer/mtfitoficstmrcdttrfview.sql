@@ -29,6 +29,7 @@ CREATE VIEW findata.mtfitoficstmrcdttrfview
   sender,
   receiver,
   trn,
+  insertdate,
   amount,
   currency,
   valuedate,
@@ -42,7 +43,19 @@ SELECT
   rm.sender, 
   rm.receiver, 
   rm.trn, 
-  mt.amount, 
+  rm.insertdate, 
+  to_number(CASE 
+    WHEN (
+      rtrim((mt.amount)::text) IS NULL
+    ) THEN '0,00'::text 
+    WHEN (
+      rtrim((mt.amount)::text) = ''::text
+    ) THEN '0,00'::text 
+    WHEN (
+      rtrim((mt.amount)::text) = ','::text
+    ) THEN '0,00'::text 
+    ELSE replace(rtrim((mt.amount)::text), ','::text, '.'::text) 
+  END, 'FM99999999999999999D99'::text) AS amount, 
   mt.currency, 
   mt.valuedate, 
   eq.queuename, 
@@ -52,8 +65,9 @@ FROM (((SELECT
   rm.sender, 
   rm.receiver, 
   rm.trn, 
-  rm.correlationid 
-FROM findata.routedmessages rm 
+  rm.correlationid, 
+  rm.insertdate 
+FROM routedmessages rm 
 WHERE
   (
     (rm.currentqueue = 1) AND
@@ -66,7 +80,7 @@ WHERE
     mtfitoficstmrcdttrftab.amount, 
     mtfitoficstmrcdttrftab.currency, 
     mtfitoficstmrcdttrftab.valuedate 
-  FROM findata.mtfitoficstmrcdttrftab) mt ON 
+  FROM mtfitoficstmrcdttrftab) mt ON 
     (
       (
         (rm.correlationid)::text = (mt.correlid)::text
@@ -77,7 +91,7 @@ WHERE
     entryqueue.correlationid, 
     entryqueue.queuename, 
     entryqueue.payload 
-  FROM findata.entryqueue) eq ON 
+  FROM entryqueue) eq ON 
     (
       (
         (mt.correlid)::text = (eq.correlationid)::text

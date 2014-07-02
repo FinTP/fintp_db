@@ -22,7 +22,7 @@
 
 INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('MSGTYPES_MTID', 999);
 INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QMOVEPRIVMAPS_MAPID', 999);
-INSERT INTO idgenlist (tabcolname, idvalue) VALUES ('QTYPEACTIONMAPS_MAPID', 999);
+INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QTYPEACTIONMAPS_MAPID', 999);
 INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ERRORCODES_GUID', 999);
 INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('ROLES_ROLEID', 999);
 INSERT INTO fincfg.idgenlist (tabcolname, idvalue) VALUES ('QUEUES_GUID', 999);
@@ -51,7 +51,7 @@ INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selms
 INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (3, 'Reject', '', 1, 1, 0, 70, 0);
 INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (4, 'Reject after COT', '', 0, 0, 1, 70, 0);
 INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (7, 'Client Reject', '', 0, 1, 0, 70, 0);
-INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (16, 'View Possible Duplicates', 'pe coada de tip duplicate/investig?', 1, 0, 0, NULL, 0);
+INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (16, 'View Possible Duplicates', '', 1, 0, 0, NULL, 0);
 INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (1, 'Batch', '', 0, 1, 1, 60, 1);
 INSERT INTO fincfg.queueactions (actionid, "action", description, currmsg, selmsg, groupmsg, priority, addoptions) VALUES (2, 'Move', '', 1, 1, 0, 50, 1);
 COMMIT;
@@ -87,7 +87,8 @@ INSERT INTO fincfg.routingkeywords (guid, keyword, comparer, selector, descripti
   (110, 'CdtCustName', 'string', E'[^\n]*\n(?<value>[^\n]*)[\n]*.*', 'Creditor Customer Name', '(?<value>.*)'),
   (111, 'Service', 'string', '(?<value>.*)', 'Service', '(?<value>.*)'),
   (112, 'Sender', 'string', '(?<value>[A-Z 0-9]{8})', 'Sender', '(?<value>[A-Z 0-9]{8})'),
-  (113, 'Receiver', 'string', '(?<value>[A-Z 0-9]{8})', 'Receiver', '(?<value>.*)');
+  (113, 'Receiver', 'string', '(?<value>[A-Z 0-9]{8})', 'Receiver', '(?<value>.*)'),
+  (133, 'CdtID', 'string', E'(?:[^\\n]*\\n)*(?<value>.*)$', 'Creditor ID', '(?<value>.*)');
 COMMIT;
 
 

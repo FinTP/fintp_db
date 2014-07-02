@@ -20,7 +20,7 @@
 
 
 
-INSERT INTO msgtypes (mtid, messagetype, friendlyname, displayorder, "storage", businessarea, reportingstorage) VALUES (23, 'CoreBlkLrgRmtCdtTrf', 'Customer Credit Transfer', NULL, 'MTCoreBlkLrgRmtCdtTrfTAB', 'Funds Transfer', 'MTCoreBlkLrgRmtCdtTrfView');
+INSERT INTO fincfg.msgtypes (mtid, messagetype, friendlyname, displayorder, "storage", businessarea, reportingstorage) VALUES (23, 'CoreBlkLrgRmtCdtTrf', 'Customer Credit Transfer', NULL, 'MTCoreBlkLrgRmtCdtTrfTAB', 'Funds Transfer', 'MTCoreBlkLrgRmtCdtTrfView');
 COMMIT;
 
 
@@ -40,5 +40,6 @@ INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALU
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (110, '//smt:MessageText/smt:tag59/@tagValue', 'CoreBlkLrgRmtCdtTrf', 'selector', 164);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (111, '//sg:UserHeader/sg:tag103/@tagValue', 'CoreBlkLrgRmtCdtTrf', 'selector', 165);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (117, '//sg:UserHeader/sg:tag108/@tagValue', 'CoreBlkLrgRmtCdtTrf', 'selector', 166);
-INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (126, '//smt:MessageText/smt:tag21/@tagValue', 'CoreBlkLrgRmtCdtTrf', 'selector', 167);
 COMMIT;
+
+INSERT INTO fincfg.queuemsggroups (msgtype, kword1, kword2, kword3, kword4, kword5) VALUES ('CoreBlkLrgRmtCdtTrf', 'Receiver', NULL, NULL, NULL, NULL);

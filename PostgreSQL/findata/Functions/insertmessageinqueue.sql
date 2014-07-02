@@ -18,9 +18,9 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
---Function: findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, insessid varchar, inqueuename varchar)
+--Function: findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, insessid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, inqueuename varchar)
 
---DROP FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, insessid varchar, inqueuename varchar);
+--DROP FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, insessid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, inqueuename varchar);
 
 CREATE OR REPLACE FUNCTION findata.insertmessageinqueue
 (
@@ -28,6 +28,7 @@ CREATE OR REPLACE FUNCTION findata.insertmessageinqueue
   IN  inpayload      text,
   IN  inbatchid      varchar,
   IN  incorrelid     varchar,
+  IN  insessid       varchar,
   IN  inreqservice   varchar,
   IN  inrespservice  varchar,
   IN  inreqtype      varchar,
@@ -35,7 +36,6 @@ CREATE OR REPLACE FUNCTION findata.insertmessageinqueue
   IN  inholdstatus   integer,
   IN  insequence     integer,
   IN  infeedback     varchar,
-  IN  insessid       varchar,
   IN  inqueuename    varchar
 )
 RETURNS void AS
@@ -44,6 +44,7 @@ DECLARE
 
 /************************************************
   Change history:  dd.mon.yyyy  --  author  --   description
+                       27.May.2014, DenisaN         
   Created:             09.Aug.2013, LucianP 7698
   Description:         Inserts a message into one given queue (as entry queue)
   Parameters:                      inGuid - message identifier
@@ -67,6 +68,7 @@ BEGIN
 
     insert into findata.entryqueue (guid, payload, batchid, correlationid, requestorservice, responderservice, requesttype, priority, holdstatus, sequence, feedback, sessionid, queuename)
                     values (inGuid, inPayload, inBatchID, inCorrelID, inReqService, inRespService, inReqType, inPriority, inHoldstatus, inSequence, inFeedback, inSessID, inQueueName);
+    update findata.routedmessages set currentqueue = 1 where correlationid =  inCorrelID;
 
 
 EXCEPTION
@@ -81,9 +83,10 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, insessid varchar, inqueuename varchar)
+ALTER FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, insessid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, inqueuename varchar)
   OWNER TO findata;
 
+
 GRANT EXECUTE
-  ON FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, insessid varchar, inqueuename varchar)
+  ON FUNCTION findata.insertmessageinqueue(inguid varchar, inpayload text, inbatchid varchar, incorrelid varchar, insessid varchar, inreqservice varchar, inrespservice varchar, inreqtype varchar, inpriority integer, inholdstatus integer, insequence integer, infeedback varchar, inqueuename varchar)
 TO findata;

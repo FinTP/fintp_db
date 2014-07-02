@@ -139,7 +139,7 @@
 \i findata/Functions/direfusalgetall.sql
 \i findata/Functions/getimageforcsm.sql
 \i findata/Functions/insertimgblobsqueue.sql
-\i findata/Functions/readforimage.sql
+\i findata/Functions/readimage.sql
 \i findata/Functions/updatecorridblobsqueue.sql
 
 

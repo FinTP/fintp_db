@@ -22,36 +22,47 @@
 --Table: fincfg.routingrules
 
 --DROP TABLE fincfg.routingrules;
--- Table: fincfg.routingrules
 
--- DROP TABLE fincfg.routingrules;
+CREATE TABLE fincfg.routingrules (
+  guid         integer NOT NULL,
+  queueid      integer NOT NULL,
+  schemaguid   integer NOT NULL,
+  "sequence"   integer,
+  ruletype     integer,
+  description  varchar(70),
+  msgcond      varchar(500),
+  funccond     varchar(500),
+  metacond     varchar(500),
+  "action"     varchar(500) NOT NULL,
+  /* Keys */
+  CONSTRAINT "PK_RR_GUID"
+    PRIMARY KEY (guid)
+    USING INDEX TABLESPACE fincfgtbs, 
+  CONSTRAINT uk_rr_qidseq
+    UNIQUE (queueid, "sequence"),
+  /* Foreign keys */
+  CONSTRAINT "FK_RR_Q_QUEUEID"
+    FOREIGN KEY (queueid)
+    REFERENCES fincfg.queues(guid)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION, 
+  CONSTRAINT "FK_RR_RS_SCHEMAGUID"
+    FOREIGN KEY (schemaguid)
+    REFERENCES fincfg.routingschemas(guid)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+) WITH (
+    OIDS = TRUE
+  )
+  TABLESPACE fincfgtbs;
 
-CREATE TABLE fincfg.routingrules
-(
-  guid integer NOT NULL,
-  queueid integer NOT NULL,
-  schemaguid integer NOT NULL,
-  sequence integer,
-  ruletype integer,
-  description character varying(70),
-  msgcond character varying(500),
-  funccond character varying(500),
-  metacond character varying(500),
-  action character varying(500) NOT NULL,
-  CONSTRAINT "PK_RR_GUID" PRIMARY KEY (guid)
-  USING INDEX TABLESPACE fincfgtbs,
-  CONSTRAINT "FK_RR_Q_QUEUEID" FOREIGN KEY (queueid)
-      REFERENCES fincfg.queues (guid) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "FK_RR_RS_SCHEMAGUID" FOREIGN KEY (schemaguid)
-      REFERENCES fincfg.routingschemas (guid) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=TRUE
-)
-TABLESPACE fincfgtbs;
 ALTER TABLE fincfg.routingrules
   OWNER TO fincfg;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE fincfg.routingrules TO finuiuser;
-GRANT ALL ON TABLE fincfg.routingrules TO fincfg;
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+  ON fincfg.routingrules
+TO finuiuser;
+
+GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES, TRIGGER, TRUNCATE
+  ON fincfg.routingrules
+TO fincfg;

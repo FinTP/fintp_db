@@ -18,7 +18,6 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
-
 --View: findata.repstatft
 
 --DROP VIEW findata.repstatft;
@@ -200,8 +199,14 @@ FROM findata.routedmessages) rm
       ) THEN 'New'::text 
       WHEN (
         (
-          (feedbackagg.mqid IS NOT NULL) AND
-          (feedbackagg.interfacecode IS NULL)
+          (
+            (
+              (feedbackagg.mqid IS NOT NULL) AND
+              (feedbackagg.interfacecode IS NULL)
+            ) AND
+            (feedbackagg.networkcode IS NULL)
+          ) AND
+          (feedbackagg.correspcode IS NULL)
         ) AND
         (feedbackagg.appcode IS NULL)
       ) THEN 'Sent'::text 
@@ -214,9 +219,6 @@ FROM findata.routedmessages) rm
       WHEN (
         (feedbackagg.appcode)::text = 'FTP10'::text
       ) THEN 'Closed'::text 
-      WHEN (
-        (feedbackagg.appcode)::text = 'FTP12'::text
-      ) THEN 'Reactivated'::text 
       WHEN (
         (feedbackagg.appcode)::text = 'RRD01'::text
       ) THEN 'AML Rejected (Blocking funds)'::text 
@@ -231,33 +233,36 @@ FROM findata.routedmessages) rm
       ) THEN 'Rejected after COT'::text 
       WHEN (
         (feedbackagg.appcode)::text = 'PDM00'::text
-      ) THEN 'Possible duplicate'::text 
+      ) THEN 'Rejected as duplicate'::text 
       WHEN (
         (feedbackagg.interfacecode)::text = 'FTP00'::text
       ) THEN 'Received'::text 
       WHEN (
-        (feedbackagg.interfacecode)::text = ANY (ARRAY['275'::text, 'FTP02'::text])
-      ) THEN 'Interface success'::text 
-      WHEN (
-        (feedbackagg.interfacecode)::text <> ALL (ARRAY['275'::text, 'FTP02'::text])
-      ) THEN 'Interface error '::text 
-      WHEN (
-        (feedbackagg.networkcode)::text = ANY (ARRAY['0'::text, 'FTP02'::text])
-      ) THEN 'Network accepted'::text 
-      WHEN (
-        (feedbackagg.networkcode)::text <> ALL (ARRAY['0'::text, 'FTP02'::text])
-      ) THEN 'Network error'::text 
+        (feedbackagg.correspcode)::text = ANY (ARRAY['FTP02'::text, 'CSM00'::text])
+      ) THEN 'Settled'::text 
       WHEN (
         (feedbackagg.correspcode)::text <> ALL (ARRAY['FTP02'::text, 'CSM00'::text])
       ) THEN 'Rejected'::text 
       WHEN (
-        (feedbackagg.correspcode)::text = ANY (ARRAY['FTP02'::text, 'CSM00'::text])
-      ) THEN 'Settled'::text 
+        (feedbackagg.appcode)::text = 'FTP12'::text
+      ) THEN 'Reactivated'::text 
+      WHEN (
+        (feedbackagg.networkcode)::text <> ALL (ARRAY['0'::text, 'FTP02'::text])
+      ) THEN 'Network error'::text 
+      WHEN (
+        (feedbackagg.networkcode)::text = ANY (ARRAY['0'::text, 'FTP02'::text])
+      ) THEN 'Network accepted'::text 
+      WHEN (
+        (feedbackagg.interfacecode)::text = ANY (ARRAY['FTM00'::text, '275'::text, 'FTP02'::text])
+      ) THEN 'Interface success'::text 
+      WHEN (
+        (feedbackagg.interfacecode)::text <> ALL (ARRAY['275'::text, 'FTP02'::text])
+      ) THEN 'Interface error '::text 
       ELSE 'Unknown'::text 
     END AS state, 
     CASE 
       WHEN (
-        (feedbackagg.interfacecode)::text <> ALL (ARRAY['275'::text, 'FTP02'::text])
+        (feedbackagg.interfacecode)::text <> ALL (ARRAY['FTP00'::text, 'FTM00'::text, '275'::text, 'FTP02'::text])
       ) THEN feedbackagg.interfacecode 
       WHEN (
         (feedbackagg.networkcode)::text <> ALL (ARRAY['0'::text, 'FTP02'::text])

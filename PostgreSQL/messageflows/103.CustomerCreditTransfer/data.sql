@@ -20,7 +20,7 @@
 
 
 
-INSERT INTO msgtypes (mtid, messagetype, friendlyname, displayorder, "storage", businessarea, reportingstorage) VALUES (1, '103', 'Customer Credit Transfer', NULL, 'MT103TAB', 'Funds Transfer', 'MT103TAB');
+INSERT INTO fincfg.msgtypes (mtid, messagetype, friendlyname, displayorder, "storage", businessarea, reportingstorage) VALUES (1, '103', 'Customer Credit Transfer', NULL, 'MT103TAB', 'Funds Transfer', 'MT103TAB');
 COMMIT;
 
 
@@ -41,4 +41,7 @@ INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALU
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (111, '//sg:UserHeader/sg:tag103/@tagValue', '103', 'selector', 13);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (117, '//sg:UserHeader/sg:tag108/@tagValue', '103', 'selector', 14);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (126, '//smt:MessageText/smt:tag21/@tagValue', '103', 'selector', 15);
+
+
+
 

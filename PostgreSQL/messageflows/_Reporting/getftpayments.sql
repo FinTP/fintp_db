@@ -19,9 +19,9 @@
 */
 
 
---Function: findata.getftpayments(Input insdatemin varchar, Input insdatemax varchar, Input inmsgtype varchar, Input insender varchar, Input inreceiver varchar, Input inref varchar, Input invdate varchar, Input inamtmin numeric, Input inamtmax numeric, Input inccy varchar, Input indacc varchar, Input indcname varchar, Input inordbank varchar, Input inbenbank varchar, Input incacc varchar, Input inccname varchar, Input inservice varchar, Input indirect varchar, Input instate varchar, Input inbatchid varchar, Input inuserid varchar, Input inordfield varchar, Input inorddir varchar, Input inllimit integer, Input inulimit integer, Output outretcursor refcursor)
+--Function: findata.getftpayments(Input insdatemin varchar, Input insdatemax varchar, Input inmsgtype varchar, Input insender varchar, Input inreceiver varchar, Input inref varchar, Input invdate varchar, Input inamtmin numeric, Input inamtmax numeric, Input inccy varchar, Input indacc varchar, Input indcname varchar, Input inordbank varchar, Input inbenbank varchar, Input incacc varchar, Input inccname varchar, Input inservice varchar, Input indirect varchar, Input instate varchar, Input inbatchid varchar, Input inuserid integer, Input inordfield varchar, Input inorddir varchar, Input inllimit integer, Input inulimit integer, Output outretcursor refcursor)
 
---DROP FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid varchar, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor");
+--DROP FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid integer, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor");
 
 CREATE OR REPLACE FUNCTION findata.getftpayments
 (
@@ -45,7 +45,7 @@ CREATE OR REPLACE FUNCTION findata.getftpayments
   IN   indirect      varchar,
   IN   instate       varchar,
   IN   inbatchid     varchar,
-  IN   inuserid      varchar,
+  IN   inuserid      integer,
   IN   inordfield    varchar,
   IN   inorddir      varchar,
   IN   inllimit      integer,
@@ -121,7 +121,7 @@ open outretcursor for execute
        ' and ( $31 is null or direction = $32) ' ||
        ' and ( $33 is null or state = $34) ' ||
        ' and ( $35 is null or lower(batchid) like lower(''%''||$36||''%'')) ' ||
-       ' and ( $37 is null or fincfg.getusername(userid) = $38 ) ' ||
+       ' and ( $37 is null or userid = $38 ) ' ||
   ' order by '||coalesce(inordfield, 'insertdate')||' '||coalesce(inorddir, 'desc')||') tmp ) tmp1'||
   ' where rnum > coalesce($39,0) and rnum <= coalesce($40,100)+ coalesce($41,0)'
 using insdatemin, insdatemax, inmsgtype, inmsgtype, insender, insender, inreceiver, inreceiver, inref, inref,  invdate, invdate, inamtmin, inamtmax,
@@ -140,13 +140,13 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid varchar, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
+ALTER FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid integer, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
   OWNER TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid varchar, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
+  ON FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid integer, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
 TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid varchar, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
+  ON FUNCTION findata.getftpayments(IN insdatemin varchar, IN insdatemax varchar, IN inmsgtype varchar, IN insender varchar, IN inreceiver varchar, IN inref varchar, IN invdate varchar, IN inamtmin numeric, IN inamtmax numeric, IN inccy varchar, IN indacc varchar, IN indcname varchar, IN inordbank varchar, IN inbenbank varchar, IN incacc varchar, IN inccname varchar, IN inservice varchar, IN indirect varchar, IN instate varchar, IN inbatchid varchar, IN inuserid integer, IN inordfield varchar, IN inorddir varchar, IN inllimit integer, IN inulimit integer, OUT outretcursor "refcursor")
 TO finuiuser;

@@ -42,6 +42,12 @@ INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALU
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (109, '//x:CdtTrfTxInf/x:Dbtr/x:Nm/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 26);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (110, '//x:CdtTrfTxInf/x:Cdtr/x:Nm/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 27);
 INSERT INTO fincfg.routingkeywordmaps (keywordid, tag, mt, selector, mapid) VALUES (126, '//x:CdtTrfTxInf/x:PmtId/x:InstrId/text()', 'FIToFICstmrCdtTrf', 'selectoriso', 28);
+Insert into FINCFG.ROUTINGKEYWORDMAPS (KEYWORDID, TAG, MT, SELECTOR, MAPID) Values (113, '//x:InstdAgt/x:FinInstnId/x:BIC/text()|//x:CdtrAgt/x:FinInstnId/x:BIC/text()', 'FIToFIPmtStsRpt', 'selectoriso', 152);
+Insert into FINCFG.ROUTINGKEYWORDMAPS (KEYWORDID, TAG, MT, SELECTOR, MAPID) Values (112, '//x:DbtrAgt/x:FinInstnId/x:BIC/text()', 'FIToFIPmtStsRpt', 'selectoriso', 153);
+COMMIT;
+
+
+
 
 
 INSERT INTO fincfg.queuemsggroups (msgtype, kword1, kword2, kword3, kword4, kword5) VALUES ('FIToFICstmrCdtTrf', 'Receiver', 'ValueDate', NULL, NULL, NULL);

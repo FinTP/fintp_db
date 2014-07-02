@@ -18,14 +18,14 @@
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
 
---Function: findata.updatermuserid(incorrelationid varchar, inuserid varchar)
+--Function: findata.updatermuserid(incorrelationid varchar, inuserid integer)
 
---DROP FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid varchar);
+--DROP FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid integer);
 
 CREATE OR REPLACE FUNCTION findata.updatermuserid
 (
   IN  incorrelationid  varchar,
-  IN  inuserid         varchar
+  IN  inuserid         integer
 )
 RETURNS void AS
 $$
@@ -59,9 +59,9 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid varchar)
+ALTER FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid integer)
   OWNER TO findata;
 
 GRANT EXECUTE
-  ON FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid varchar)
+  ON FUNCTION findata.updatermuserid(incorrelationid varchar, inuserid integer)
 TO findata;

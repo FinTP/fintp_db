@@ -29,7 +29,7 @@ CREATE TABLE findata.messagehashes (
   insertdate   timestamp WITHOUT TIME ZONE NOT NULL,
   recvorder    integer NOT NULL DEFAULT 1
 ) WITH (
-    OIDS = TRUE
+    OIDS = FALSE
   );
 
 ALTER TABLE findata.messagehashes
@@ -38,3 +38,7 @@ ALTER TABLE findata.messagehashes
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES, TRIGGER, TRUNCATE
   ON findata.messagehashes
 TO findata;
+
+GRANT SELECT
+  ON findata.messagehashes
+TO finuiuser;

@@ -44,7 +44,6 @@ DECLARE
 ***********************************************/
 
 
-
 v_storage varchar(35);
 v_stmt    varchar(1000);
 
@@ -55,7 +54,7 @@ BEGIN
          
        --get refusal reference
        v_stmt :=  ' select trn from '||
-                                   ' ( select correlid, trn from feedbackagg.feedbackagg where batchid = $1 ) fb '||
+                                   ' ( select correlid, trn from findata.feedbackagg where batchid = $1 ) fb '||
                             ' join '|| 
                                     ' ( select correlid from findata.'||v_storage||' where origref = $2 ) mt '||
                              ' on fb.correlid = mt.correlid ';   
@@ -76,7 +75,6 @@ COST 100;
 
 ALTER FUNCTION findata.getoriginalref(IN intrn varchar, IN inbatchid varchar, OUT outref varchar)
   OWNER TO findata;
-
 
 GRANT EXECUTE
   ON FUNCTION findata.getoriginalref(IN intrn varchar, IN inbatchid varchar, OUT outref varchar)
