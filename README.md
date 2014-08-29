@@ -31,7 +31,7 @@ Run 'bin/init' to initialize database structure
 - run createDBcontent.sql script file (if subsequent runs, you must drop and recreate the schemas first)
 
         psql -f createDBcontent.sql -U postgres -d <database_name>
-- [optional] run specific *Message flow* scripts in /PostgreSQL/messageflows
+
 
 Usage
 -----
