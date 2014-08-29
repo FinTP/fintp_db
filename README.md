@@ -21,7 +21,7 @@ Run 'bin/init' to initialize database structure
 
 **Configure database**
 
-- create database
+- create database (name it *fintpce* if intended to run the prebuilt scenarios)
 - create schemas and specific users (fincfg, findata)
 - create user for fintp_api (finuiuser)
 - create one tablespace for each user (fincfgtbs, findatatbs)
@@ -33,6 +33,9 @@ Run 'bin/init' to initialize database structure
         psql -f createDBcontent.sql -U postgres -d <database_name>
 - [optional] run specific *Message flow* scripts in /PostgreSQL/messageflows
 
+Usage
+-----
+See [Samples](https://github.com/FinTP/fintp_samples) for a list of usage scenarios.
 
 Contributing
 -----
