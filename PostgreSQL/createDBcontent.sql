@@ -51,13 +51,9 @@
 \i fincfg/Functions/updateversion.sql
 \i fincfg/Functions/getduplicatesettings.sql
 \i fincfg/Functions/getlastbusinessday.sql
-\i fincfg/Functions/getusername.sql
 
 
-\echo fincfg:Data
 
-
-\i fincfg/Data/data.sql
 
 
 
@@ -150,3 +146,9 @@
 
 
 
+
+
+\echo fincfg:Data
+
+
+\i fincfg/Data/data.sql
