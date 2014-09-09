@@ -5,3 +5,6 @@ GRANT USAGE ON SCHEMA fincfg TO findata;
 
 GRANT USAGE ON SCHEMA findata TO finuiuser;
 GRANT ALL ON SCHEMA findata TO findata;
+
+ALTER ROLE finuiuser
+  SET search_path = "$user", findata, fincfg;

@@ -31,6 +31,7 @@ CREATE TABLE fincfg.msgtypes (
   "storage"         varchar(35) NOT NULL,
   businessarea      varchar(100) NOT NULL,
   reportingstorage  varchar(35),
+  parentmsgtype     varchar(35),
   /* Keys */
   CONSTRAINT "PK_MTL_MTID"
     PRIMARY KEY (mtid)

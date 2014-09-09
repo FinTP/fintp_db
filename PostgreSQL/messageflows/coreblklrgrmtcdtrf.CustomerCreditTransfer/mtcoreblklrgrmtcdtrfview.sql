@@ -70,7 +70,7 @@ FROM (((SELECT
   rm.trn, 
   rm.correlationid, 
   rm.insertdate 
-FROM routedmessages rm 
+FROM findata.routedmessages rm 
 WHERE
   (
     (rm.currentqueue = 1) AND
@@ -84,7 +84,7 @@ WHERE
     mtcoreblklrgrmtcdttrftab.currency, 
     mtcoreblklrgrmtcdttrftab.valuedate, 
     mtcoreblklrgrmtcdttrftab.service 
-  FROM mtcoreblklrgrmtcdttrftab) mt ON 
+  FROM findata.mtcoreblklrgrmtcdttrftab) mt ON 
     (
       (
         (rm.correlationid)::text = (mt.correlid)::text
@@ -95,7 +95,7 @@ WHERE
     entryqueue.correlationid, 
     entryqueue.queuename, 
     entryqueue.payload 
-  FROM entryqueue) eq ON 
+  FROM findata.entryqueue) eq ON 
     (
       (
         (mt.correlid)::text = (eq.correlationid)::text
