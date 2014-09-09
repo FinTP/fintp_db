@@ -135,7 +135,20 @@ elsif inheadertype = 'T' and inmsgtype in ('950E', '940E') then
          union select 'Value date', 'valuedate', 3 rn
          union select 'Amount', 'amount', 4 rn
          union select 'Currency', 'currency', 5 rn 
-       order by rn asc;           
+       order by rn asc;      
+
+elsif inheadertype = 'T' and inmsgtype in ('950', '940') then
+
+      open outretcursor for 
+       select 'Receiver', 'receiver', 1 rn       
+         union select 'Account number', 'accnumber', 2 rn
+         union select 'Statement number', 'stmtnumber', 3 rn
+         union select 'Statement date', 'valuedate', 4 rn
+         union select 'Initial balance', 'obamount', 5 rn 
+         union select 'Final balance', 'cbamount', 6 rn 
+         union select 'Transactions received', 'trxrec', 7 rn 
+         union select 'Transactions expected', 'txno', 8 rn 
+       order by rn asc;                 
                          
 end if;
 
@@ -155,10 +168,5 @@ COST 100;
 ALTER FUNCTION findata.getgroupsheaderformtqueue(IN inmsgtype varchar, IN inheadertype varchar, OUT outretcursor "refcursor")
   OWNER TO findata;
 
-GRANT EXECUTE
-  ON FUNCTION findata.getgroupsheaderformtqueue(IN inmsgtype varchar, IN inheadertype varchar, OUT outretcursor "refcursor")
-TO findata;
-
-GRANT EXECUTE
-  ON FUNCTION findata.getgroupsheaderformtqueue(IN inmsgtype varchar, IN inheadertype varchar, OUT outretcursor "refcursor")
-TO finuiuser;
+GRANT EXECUTE ON FUNCTION findata.getgroupsheaderformtqueue(IN inmsgtype varchar, IN inheadertype varchar, OUT outretcursor "refcursor")
+  TO finuiuser;

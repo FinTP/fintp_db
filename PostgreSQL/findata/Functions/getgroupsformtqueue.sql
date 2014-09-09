@@ -19,14 +19,16 @@
 */
 
 
---Function: findata.getgroupsformtqueue(Input inqueuename varchar, Input inmsgtype varchar, Output outretcursor refcursor)
+--Function: findata.getgroupsformtqueue(Input inqueuename varchar, Input inmsgtype varchar, Input inamount numeric, Input inreference varchar, Output outretcursor refcursor)
 
---DROP FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, OUT outretcursor "refcursor");
+--DROP FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor");
 
 CREATE OR REPLACE FUNCTION findata.getgroupsformtqueue
 (
   IN   inqueuename   varchar,
   IN   inmsgtype     varchar,
+  IN   inamount      numeric,
+  IN   inreference   varchar,
   OUT  outretcursor  "refcursor"
 )
 RETURNS "refcursor" AS
@@ -34,10 +36,15 @@ $$
 DECLARE
 
 /************************************************
-  Change history: dd.mon.yyyy  --  author  --   description                        
+  Change history: dd.mon.yyyy  --  author  --   description
+                  22.Aug.2014, DenisaN 8539                        
   Created:        27.Mar.2014, DenisaN 7488
-  Description:    Returns the group header / grouping criteria for the given message type
-  Parameters:     inmsgtype - message type
+  Description:    Returns the group header / grouping criteria for the given message type;
+                  may filter trx in groups
+  Parameters:     inqueuename - queue name
+                  inmsgtype - message type
+                  inamount  - filter: trx amount
+                  inreference - filter: reference
   Returns:        cursor
   Used:           FinTP/BASE/UI
 ***********************************************/             
@@ -81,11 +88,13 @@ BEGIN
         ' select '||v_groupaliasfields||', sum(amount) totamt, count(*) cnt, '||
               ''''||v_timekey||''' timekey, md5(string_agg(guid,'''' order by guid)) groupkey '||
         ' from findata.'||v_qreportingview||' where queuename = $1 '||
+        ' and ($2 is null or (upper(trn) like (''%''||$3||''%'') or amount = $4))'||
         ' group by '||v_groupfields||
         ' order by '||v_groupfields
-     using inqueuename;
+     using inqueuename, inreference, inreference, inamount;
   end if;
-
+  
+  
 EXCEPTION
 WHEN OTHERS THEN
    RAISE EXCEPTION 'Unexpected error occured while gathering messages: %', SQLERRM;
@@ -98,13 +107,8 @@ CALLED ON NULL INPUT
 SECURITY INVOKER
 COST 100;
 
-ALTER FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, OUT outretcursor "refcursor")
+ALTER FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
   OWNER TO findata;
 
-GRANT EXECUTE
-  ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, OUT outretcursor "refcursor")
-TO findata;
-
-GRANT EXECUTE
-  ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, OUT outretcursor "refcursor")
-TO finuiuser;
+GRANT EXECUTE ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
+  TO finuiuser;
