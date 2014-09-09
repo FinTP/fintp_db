@@ -17,8 +17,6 @@
 * or contact Allevo at : 031281 Bucuresti, 23C Calea Vitan, Romania,
 * phone +40212554577, office@allevo.ro <mailto:office@allevo.ro>, www.allevo.ro.
 */
-
-
 --Function: findata.getgroupsformtqueue(Input inqueuename varchar, Input inmsgtype varchar, Input inamount numeric, Input inreference varchar, Output outretcursor refcursor)
 
 --DROP FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor");
@@ -110,5 +108,10 @@ COST 100;
 ALTER FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
   OWNER TO findata;
 
-GRANT EXECUTE ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
-  TO finuiuser;
+GRANT EXECUTE
+  ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
+TO findata;
+
+GRANT EXECUTE
+  ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
+TO finuiuser;  TO finuiuser;
