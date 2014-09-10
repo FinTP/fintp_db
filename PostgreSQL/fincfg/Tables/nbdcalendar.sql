@@ -36,6 +36,8 @@ CREATE TABLE fincfg.nbdcalendar (
 ALTER TABLE fincfg.nbdcalendar
   OWNER TO fincfg;
 
-GRANT SELECT
-  ON fincfg.nbdcalendar
-TO findata;
+GRANT ALL ON TABLE fincfg.nbdcalendar TO fincfg;
+
+GRANT SELECT ON TABLE fincfg.nbdcalendar TO findata;
+
+GRANT SELECT ON TABLE fincfg.nbdcalendar TO finuiuser;

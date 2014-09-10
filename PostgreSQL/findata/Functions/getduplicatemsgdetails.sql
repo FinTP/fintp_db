@@ -110,14 +110,12 @@ v_stmt:='with  '||
         ' join fblive on rmlive.correlationid = fblive.correlid ';
                       
 v_stmt:=' select dup.guid, dup.correlationid, dup.trn, dup.livearch, dup.feedback, '|| 
-                 ' case '||
-                 ' when dup.guid='''||inmsgid||''' then 2 '||
-                 ' else case '||
-                 '        when q.guid is null then 0 '||
-                 '        else 1 '||
-                       ' end '||
-                                 ' end dupQueue from ('||v_stmt;
-v_stmt:=v_stmt||'  ) dup left join (select correlationid, guid from entryqueue where queuename = $4) q on dup.correlationid = q.correlationid' ;
+                  ' case '||
+                  ' when q.queuename is null then ''n/a'' else q.queuename '
+                                             ' end queuename 
+
+                                 from ('||v_stmt;
+v_stmt:=v_stmt||'  ) dup left join (select correlationid, guid, queuename from entryqueue where queuename = $4) q on dup.correlationid = q.correlationid' ;
       
 --dupQueue: 2-original message; 1- message in queue; 0- message not in queue    
 if inQueueName is not null then 
@@ -146,6 +144,10 @@ COST 100;
 
 ALTER FUNCTION findata.getduplicatemsgdetails(IN inmsgid varchar, IN inlivearch integer, IN inqueuename varchar, OUT outretcursor "refcursor")
   OWNER TO findata;
+
+GRANT EXECUTE
+  ON FUNCTION findata.getduplicatemsgdetails(IN inmsgid varchar, IN inlivearch integer, IN inqueuename varchar, OUT outretcursor "refcursor")
+TO PUBLIC;
 
 GRANT EXECUTE
   ON FUNCTION findata.getduplicatemsgdetails(IN inmsgid varchar, IN inlivearch integer, IN inqueuename varchar, OUT outretcursor "refcursor")
