@@ -114,4 +114,4 @@ TO findata;
 
 GRANT EXECUTE
   ON FUNCTION findata.getgroupsformtqueue(IN inqueuename varchar, IN inmsgtype varchar, IN inamount numeric, IN inreference varchar, OUT outretcursor "refcursor")
-TO finuiuser;  TO finuiuser;
+TO finuiuser; 
